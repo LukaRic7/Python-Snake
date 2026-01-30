@@ -1,1 +1,23 @@
-# High-level game controller (states, restart, score)
+import pygame as pg
+
+import settings as s
+from entities.snake import Snake
+from entities.food import Food
+from systems.input_handler import handle_input
+from systems.collision import check_wall_collision, check_self_collision
+
+class Game:
+    def __init__(self):
+        pass
+
+    def reset(self):
+        pass
+
+    def handle_events(self):
+        pass
+
+    def update(self):
+        pass
+    
+    def draw(self):
+        pass
