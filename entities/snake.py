@@ -1,0 +1,1 @@
+# Snake logic (movement, growth, collision)
