@@ -1,7 +1,5 @@
 import pygame as pg
 
-import settings as s
-
 class Snake:
     def __init__(self):
         pass

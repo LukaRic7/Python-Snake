@@ -1,17 +1,36 @@
 import pygame as pg
-import settings as s
 
 from game import Game
+from states.main_menu import MainMenu
+from utils.settings import Settings
 
 def main():
     pg.init()
 
-    # TODO: Apply settings
+    screen = pg.display.set_mode(tuple(Settings.get('window').values()))
+    pg.display.set_caption('Snake Game')
+
+    clock = pg.time.Clock()
+
+    game = Game(screen)
+    game.change_state(MainMenu(game))
+
+    FPS = Settings.get('game', 'fps')
 
     # Gameloop
     running = True
     while running:
-        pass
+        events = pg.event.get()
+        for event in events:
+            if event.type == pg.QUIT:
+                running = False
+        
+        game.state.handle_events(events)
+        game.state.update()
+        game.state.draw(screen)
+
+        pg.display.flip()
+        clock.tick(FPS)
 
     pg.quit()
 

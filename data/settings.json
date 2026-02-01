@@ -1,0 +1,9 @@
+{
+    "window": {
+        "width": 640,
+        "height": 640
+    },
+    "game": {
+        "fps": 60
+    }
+}

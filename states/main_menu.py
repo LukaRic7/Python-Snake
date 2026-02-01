@@ -1,12 +1,10 @@
 import pygame
 from states.base_state import BaseState
 from ui.button import Button
-from settings import WIDTH, HEIGHT, BG_COLOR, TEXT_COLOR
 
 from states.name_input import NameInput
 from states.settings_menu import SettingsMenu
 from states.leaderboard_menu import LeaderboardMenu
-
 
 class MainMenu(BaseState):
     def __init__(self, game):
@@ -17,6 +15,8 @@ class MainMenu(BaseState):
         spacing = 70
 
         self.buttons = []
+
+    # Button callbacks
 
     def start_game(self):
         pass
@@ -30,11 +30,13 @@ class MainMenu(BaseState):
     def quit_game(self):
         pygame.quit()
 
+    # State methods
+
     def handle_events(self, events):
         pass
 
     def update(self):
         pass
 
-    def draw(self):
+    def draw(self, screen):
         pass

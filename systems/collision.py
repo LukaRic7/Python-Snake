@@ -1,5 +1,3 @@
-import settings as s
-
 def check_wall_collision(head):
     pass
 

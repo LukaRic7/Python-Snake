@@ -1,0 +1,4 @@
+
+
+class LeaderboardMenu:
+    pass

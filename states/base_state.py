@@ -1,8 +1,8 @@
 
 
 class BaseState:
-    def __init__(self):
-        pass
+    def __init__(self, game):
+        self.game = game
 
     def handle_events(self):
         pass
@@ -10,5 +10,5 @@ class BaseState:
     def update(self):
         pass
 
-    def draw(self):
+    def draw(self, screen):
         pass
