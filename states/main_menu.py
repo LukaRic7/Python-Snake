@@ -5,7 +5,7 @@ from ui.button import Button
 from states.name_input import NameInput
 from states.settings_menu import SettingsMenu
 from states.leaderboard_menu import LeaderboardMenu
-from ui.background import ParallaxGrid
+from ui.background import ParallaxGrid, MouseResponsiveParallexGrid
 
 class MainMenu(BaseState):
     def __init__(self, game):
@@ -13,7 +13,7 @@ class MainMenu(BaseState):
 
         self.font = pg.font.SysFont("arial", 72, bold=True)
 
-        self.bg = ParallaxGrid(640, 640, 40, speed=(-5, -3), color=(0, 200, 0))
+        self.bg = MouseResponsiveParallexGrid(640, 640, 40, color=(0, 200, 0), max_speed=50)
 
         # Settings
         start_y = 250
@@ -41,7 +41,9 @@ class MainMenu(BaseState):
         pass
 
     def update(self, dt):
-        self.bg.update(dt)
+        mouse_pos = pg.mouse.get_pos()
+
+        self.bg.update(dt, mouse_pos)
 
     def draw(self, screen):
         screen.fill((20, 20, 20))
