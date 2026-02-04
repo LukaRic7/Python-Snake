@@ -21,6 +21,8 @@ class Settings:
     # Keep track of the latest data as to not make too many open() calls
     _latest_data = None
 
+    lr.Log.debug('Settings initialized!')
+
     @staticmethod
     def get(*keys):
         """
@@ -33,7 +35,7 @@ class Settings:
         Value stored at the end of the key nest.
         """
 
-        lr.Log.debug('<Settings> Reading:', '.'.join(keys))
+        lr.Log.debug('Reading:', '.'.join(keys))
 
         with open(Settings._settings_path, 'r') as file:
             data:dict = json.load(file)
@@ -59,7 +61,7 @@ class Settings:
         - `*keys`: Key nest.
         """
 
-        lr.Log.debug('<Settings> Writing:', '.'.join(keys), f'= {value}')
+        lr.Log.debug('Writing:', '.'.join(keys), f'= {value}')
 
         # Grab the currently stored data from the cache, or read from the file
         if Settings._latest_data:
