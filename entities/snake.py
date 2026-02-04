@@ -4,7 +4,6 @@ class Snake:
     def __init__(self):
         pass
 
-    @property
     def head(self):
         pass
 
