@@ -50,7 +50,7 @@ class MainMenu(BaseState):
 
         self.bg.draw(screen)
 
-        title_surface = self.font.render("total god titel", True, (255, 255, 255))
+        title_surface = self.font.render("Chomp simulator", True, (255, 255, 255))
         title_rect = title_surface.get_rect(center=(400, 120))
         screen.blit(title_surface, title_rect)
 
