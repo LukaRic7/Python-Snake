@@ -1,46 +1,61 @@
+from typing import Callable
+import loggerric as lr
 import pygame as pg
+
+from utils.settings import Settings
 
 class Button:
     def __init__(
-        self, text, center_pos, callback, font, padding=12,
-        size=None,
-        bg_color=(60, 60, 60), hover_color=(100, 100, 100),
-        text_color=(255, 255, 255),
+        self, text:str, center_pos:tuple, callback:Callable, font:pg.font.Font,
+        padding:int=12, size:tuple=None, bg_color:tuple=None,
+        hover_color:tuple=None, text_color:tuple=None
     ):
-        self.text = text
+        
+        lr.Log.debug('Initializing button:', text)
+
+        # Increase scope
+        self.text     = text
         self.callback = callback
-        self.font = font
+        self.font     = font
+        self.size     = size or (padding * 2, padding * 2)
+        self.padding  = padding
 
-        self.bg_color = bg_color
-        self.hover_color = hover_color
-        self.text_color = text_color
+        # Set colors
+        self.colors      = Settings.get('color_palette')
+        self.bg_color    = bg_color or self.colors['primary_accent']
+        self.hover_color = hover_color or self.colors['light_accent']
+        self.text_color  = text_color or self.colors['dark_text']
 
-        self.padding = padding
+        # States
         self.hovered = False
 
-        # Render text
-        self.text_surf = self.font.render(text, True, text_color)
-        self.text_surf = self.font.render(text, True, text_color)
+        # Graphics
+        self.text_surface = self.font.render(text, True, self.text_color)
+        self.rect        = pg.Rect(0, 0, *self.size)
+        self.rect.center = center_pos
+        self.text_rect   = self.text_surface.get_rect(center=self.rect.center)
 
-        if size:
-            self.rect = pg.Rect(0, 0, *size)
-            self.rect.center = center_pos
-            self.text_rect = self.text_surf.get_rect(center=self.rect.center)
-        else:
-            self.text_rect = self.text_surf.get_rect(center=center_pos)
-            self.rect = self.text_rect.inflate(padding * 2, padding * 2)
+    # <-----> State Methods <-----> #
+    def handle_event(self, events:list[pg.event.Event]):
+        for event in events:
+            if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
+                if self.hovered:
+                    self.callback()
 
-    # Events
-    def handle_event(self, event):
-        if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
-            if self.hovered:
-                self.callback()
-
-    def update(self, mouse_pos):
+    def update(self, mouse_pos:tuple[int, int]):
         self.hovered = self.rect.collidepoint(mouse_pos)
 
-    # Draw
-    def draw(self, screen):
+        # Figure out the hover scale
+        scale = 1.1 if self.hovered else 1
+        new_size = (int(self.size[0] * scale), self.size[1])
+
+        # Update button size
+        center           = self.rect.center
+        self.rect.size   = new_size
+        self.rect.center = center
+        self.text_rect   = self.text_surface.get_rect(center=self.rect.center)
+
+    def draw(self, screen:pg.Surface):
         color = self.hover_color if self.hovered else self.bg_color
         pg.draw.rect(screen, color, self.rect, border_radius=100)
-        screen.blit(self.text_surf, self.text_rect)
+        screen.blit(self.text_surface, self.text_rect)

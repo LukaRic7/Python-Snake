@@ -35,23 +35,28 @@ class Settings:
         Value stored at the end of the key nest.
         """
 
-        lr.Log.debug('Reading:', '.'.join(keys))
+        try:
+            with open(Settings._settings_path, 'r') as file:
+                data:dict = json.load(file)
 
-        with open(Settings._settings_path, 'r') as file:
-            data:dict = json.load(file)
+                # Update cache
+                Settings._latest_data = data
 
-            # Update cache
-            Settings._latest_data = data
+                for key in keys:
+                    # If the key points to nothing, return empty
+                    if data == None:
+                        return
 
-            for key in keys:
-                # If the key points to nothing, return empty
-                if data == None:
-                    return
+                    data = data.get(key)
+        except Exception as e:
+            lr.Log.error('Error reading [{}]: {}'.format('.'.join(keys), e))
+            return
+        
+        lr.Log.debug('Reading:', '.'.join(keys), '= {}'.format(
+            data if len(str(data)) < 20 else f'{str(data)[:20]}...'))
 
-                data = data.get(key)
+        return data
 
-            return data
-    
     def set(value, *keys) -> None:
         """
         Set the value of the key nest.

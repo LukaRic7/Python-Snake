@@ -1,12 +1,16 @@
-class BaseState:
-    def __init__(self, game):
+from abc import ABC, abstractmethod
+import pygame as pg
+
+# Used as an interface
+class BaseState(ABC):
+    def __init__(self, game): # Cannot set game type due to circular import err
         self.game = game
 
-    def handle_events(self):
-        pass
+    @abstractmethod
+    def handle_events(self, events:list[pg.event.Event]): pass
 
-    def update(self):
-        pass
+    @abstractmethod
+    def update(self, delta_time:float): pass
 
-    def draw(self, screen):
-        pass
+    @abstractmethod
+    def draw(self, screen:pg.Surface): pass

@@ -1,14 +1,26 @@
 {
-    "window": {
+    "window_size": {
         "width": 640,
         "height": 640
     },
     "color_palette": {
         "background": [15, 23, 42],
+
+        "light_accent": [134, 239, 172],
         "primary_accent": [16, 185, 129],
         "secondary_accent": [99, 102, 241],
+        
+        "red_light": [255, 109, 109],
+        "red": [220, 38, 38],
+        "red_dark": [185, 78, 78],
+
+        "blue_light": [185, 205, 255],
+        "blue": [120, 160, 255],
+        "blue_dark": [60,  100, 200],
+
         "primary_text": [248, 250, 252],
-        "secondary_text": [148, 163, 184]
+        "secondary_text": [148, 163, 184],
+        "dark_text": [20, 20, 20]
     },
     "game": {
         "fps": 60
