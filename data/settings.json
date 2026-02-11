@@ -3,6 +3,13 @@
         "width": 640,
         "height": 640
     },
+    "color_palette": {
+        "background": [15, 23, 42],
+        "primary_accent": [16, 185, 129],
+        "secondary_accent": [99, 102, 241],
+        "primary_text": [248, 250, 252],
+        "secondary_text": [148, 163, 184]
+    },
     "game": {
         "fps": 60
     }

@@ -1,30 +1,35 @@
 import pygame as pg
 from states.base_state import BaseState
 from ui.button import Button
-
+ 
 from states.name_input import NameInput
 from states.settings_menu import SettingsMenu
 from states.leaderboard_menu import LeaderboardMenu
-from ui.background import ParallaxGrid, MouseResponsiveParallexGrid
+from ui.background import MouseResponsiveParallexGrid
+from utils.settings import Settings
 
 class MainMenu(BaseState):
     def __init__(self, game):
         super().__init__(game)
 
-        self.font = pg.font.SysFont("arial", 72, bold=True)
+        self.font = pg.font.SysFont('Verdana', 72, bold=True)
+        self.btn_font = pg.font.SysFont('Verdana', 32)
 
-        self.bg = MouseResponsiveParallexGrid(640, 640, 40, color=(0, 200, 0), max_speed=50)
+        self.title_color = Settings.get('color_palette', 'primary_accent')
+        self.background_color = Settings.get('color_palette', 'background')
 
-        # Settings
-        start_y = 250
-        spacing = 70
+        self.screen_width, self.screen_height = Settings.get('window').values()
 
-        self.buttons = [Button("Start", (400, 250), self.start_game, self.font)]
+        self.bg = MouseResponsiveParallexGrid(self.screen_width, self.screen_height, 40, color=Settings.get('color_palette', 'secondary_accent'), max_speed=50)
+
+        self.buttons = [
+            Button('Start', (self.screen_width / 2, 250), self.start_game, self.btn_font, size=(self.screen_width / 2.5, 75), bg_color=self.title_color)
+        ]
 
     # Button callbacks
 
     def start_game(self):
-        pass
+        print('pressed start game')
 
     def open_settings(self):
         pass
@@ -46,12 +51,12 @@ class MainMenu(BaseState):
         self.bg.update(dt, mouse_pos)
 
     def draw(self, screen):
-        screen.fill((20, 20, 20))
+        screen.fill(self.background_color)
 
         self.bg.draw(screen)
 
-        title_surface = self.font.render("Chomp simulator", True, (255, 255, 255))
-        title_rect = title_surface.get_rect(center=(400, 120))
+        title_surface = self.font.render('Snake', True, self.title_color)
+        title_rect = title_surface.get_rect(center=(self.screen_width / 2, 120))
         screen.blit(title_surface, title_rect)
 
         for button in self.buttons:
