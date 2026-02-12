@@ -4,8 +4,6 @@ import pygame as pg
 from states.base_state import BaseState
 from ui.button import Button
 from states.name_input import NameInput
-from states.settings_menu import SettingsMenu
-from states.leaderboard_menu import LeaderboardMenu
 from ui.background import ResponsiveParallexGrid
 from utils.settings import Settings
 from game import Game
@@ -61,9 +59,11 @@ class MainMenu(BaseState):
         self.game.change_state(NameInput(self.game))
 
     def open_settings(self):
+        from states.settings_menu import SettingsMenu
         self.game.change_state(SettingsMenu(self.game))
 
     def open_leaderboard(self):
+        from states.leaderboard_menu import LeaderboardMenu
         self.game.change_state(LeaderboardMenu(self.game))
 
     def quit_game(self):
@@ -87,8 +87,13 @@ class MainMenu(BaseState):
         screen.fill(self.colors['background'])
         self.background.draw(screen)
 
-        # Draw title
-        title_surface = self.title_font.render('Snake', True, self.colors['primary_accent'])
+        # Draw title shadow
+        shadow_surface = self.title_font.render('Snake', True, self.colors['primary_accent'])
+        shadow_rect = shadow_surface.get_rect(center=(self.screen_width / 2 + 4, 120 + 4))
+        screen.blit(shadow_surface, shadow_rect)
+
+        # Draw title text
+        title_surface = self.title_font.render('Snake', True, self.colors['light_accent'])
         title_rect = title_surface.get_rect(center=(self.screen_width / 2, 120))
         screen.blit(title_surface, title_rect)
 

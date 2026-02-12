@@ -3,6 +3,7 @@ import pygame as pg
 import traceback
 
 from states.main_menu import MainMenu
+from utils.sound import AudioManager
 from utils.settings import Settings
 from game import Game
 
@@ -23,6 +24,9 @@ def main():
     game.change_state(MainMenu(game))
 
     FPS = Settings.get('game', 'fps')
+
+    # Start bg music
+    AudioManager.play('background_music.mp3', 'music', loops=-1)
 
     # Mainloop
     lr.Log.info('Entering Game Loop...')
