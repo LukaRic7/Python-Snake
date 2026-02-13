@@ -8,6 +8,8 @@ from utils.settings import Settings
 from game import Game
 
 def main():
+    """**Main entry point.**"""
+
     pg.init()
 
     lr.Log.info('Initializing...')
@@ -51,7 +53,7 @@ def main():
             pg.display.flip()
     except Exception as e:
         lr.Log.error('Unhandled error occured during runtime:', e)
-        traceback.print_exc() # Prints entire callstack until error
+        traceback.print_exc() # Prints entire callstack up until error
     finally:
         pg.quit()
 

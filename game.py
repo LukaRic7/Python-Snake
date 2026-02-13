@@ -15,12 +15,16 @@ class Game:
         lr.Log.debug('Game state handler initialized!')
 
     def change_state(self, new_state:BaseState):
-        lr.Log.debug('Switched state:', new_state)
-
+        """
+        **Changes the game state.**
+        
+        *Parameters*:
+        - `new_state` (BaseState): New state to change to.
+        """
+        
         self.state = new_state
 
-    def reset(self):
-        pass
+        lr.Log.debug('Switched state:', new_state)
 
     # <-----> State Methods <-----> #
     def handle_events(self, events:list[pg.event.Event]):

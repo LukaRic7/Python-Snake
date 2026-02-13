@@ -3,10 +3,26 @@ import pygame as pg
 from utils.settings import Settings
 
 class ResponsiveParallexGrid:
+    """
+    **creates a responsive parallex grid for pygame.**
+    
+    A mouse responsive paralelex grid that moves away from the mouse.
+    """
+
     def __init__(
             self, cell_size:int, width:int=None, height:int=None,
             color:tuple=None, max_speed:float=100
         ):
+        """
+        **Initialization.**
+        
+        *Parameters*:
+        - `cell_size` (int): Pixel size of the grid.
+        - `width` (int=None): Width of the entire grid (defaults to window width).
+        - `height` (int=None): Height of the entire grid (defaults to window height).
+        - `color` (tuple=None): Color of the grid lines (defaults to secondary accent).
+        - `max_speed` (float=100): Max moving speed for the grid.
+        """
 
         self.width     = width or Settings.get('window_size', 'width')
         self.height    = height or Settings.get('window_size', 'height')
@@ -52,10 +68,23 @@ class ResponsiveParallexGrid:
             y += self.cell_size
 
 class Grid:
+    """
+    **Creates a grid for pygame.**
+    """
+
     def __init__(
             self, cell_size:int, width:int=None, height:int=None,
             color:tuple=None
         ):
+        """
+        **Initialization.**
+        
+        *Parameters*:
+        - `cell_size` (int): Size of each cell in pixels.
+        - `width` (int=None): Width of the entire grid (defaults to window width).
+        - `height` (int=None): Height of the entire grid (defaults to window height).
+        - `color` (tuple=None): Color of the grid (defaults to secondary accent).
+        """
 
         self.width     = width or Settings.get('window_size', 'width')
         self.height    = height or Settings.get('window_size', 'height')

@@ -3,20 +3,18 @@ import os, json
 
 class Settings:
     """
-    Handles reading and writing to the settings file.
-
-    ### Methods:
-    - `get(*keys)`: Get the value of the key nest.
-    - `set(value, *keys)`: Set the value of the key nest.
+    **Handles settings reading/writing.**
+    
+    Writes and read to/from the settings file while catching erros, and
+    automatically creating key nests.
+    
+    *Methods*:
+    - `get(*keys) -> any`: Returns the parsed value in the key nest location.
+    - `set(value, *keys) -> None`: Sets the value the key nest points to.
     """
 
     # Full path to the settings file
-    _settings_path = os.path.join(
-        os.path.dirname(__file__),
-        '..',
-        'data',
-        'settings.json'
-    )
+    _settings_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'settings.json')
 
     # Keep track of the latest data as to not make too many open() calls
     _latest_data = None
@@ -26,13 +24,13 @@ class Settings:
     @staticmethod
     def get(*keys):
         """
-        Get the value of the key nest.
-
-        ### Parameters:
-        - `*keys`: Key nest.
-
-        ### Returns:
-        Value stored at the end of the key nest.
+        **Get a key nest value.**
+        
+        *Parameters*:
+        - `*keys` (str): Keys leading to the target value.
+        
+        *Returns*:
+        - (any): The data stored in the key nest target.
         """
 
         try:
@@ -59,13 +57,12 @@ class Settings:
 
     def set(value, *keys) -> None:
         """
-        Set the value of the key nest.
-
-        ### Parameters:
-        - `value`: Value to write.
-        - `*keys`: Key nest.
+        **Set the value of a key nests target.**
+        
+        *Parameters*:
+        - `value` (any): The value that should be set.
+        - `*keys` (str): The keys pointing to the target location.
         """
-
         lr.Log.debug('Writing:', '.'.join(keys), f'= {value}')
 
         # Grab the currently stored data from the cache, or read from the file

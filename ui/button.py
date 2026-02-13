@@ -6,13 +6,33 @@ from utils.sound import AudioManager
 from utils.settings import Settings
 
 class Button:
+    """
+    **Creates a simple button for pygame.**
+    
+    Widens and changes color on hover, changes color on press, has a black
+    outline, and calls the callback function when clicked.
+    """
+
     def __init__(
         self, text:str, center_pos:tuple, callback:Callable, font:pg.font.Font,
         padding:int=12, size:tuple=None, bg_color:tuple=None,
         hover_color:tuple=None, text_color:tuple=None, outline:int=3
     ):
+        """
+        **Initialization.**
         
-        lr.Log.debug('Initializing button:', text)
+        *Parameters*:
+        - `text` (str): The text label of the button.
+        - `center_pos` (tuple): The position of the buttons center.
+        - `callback` (Callable): The callback function.
+        - `font` (pg.font.Font): Font used for the button label.
+        - `padding` (int=12): padding inside the button.
+        - `size` (tuple=None): Size of the button (defaults to padding*2).
+        - `bg_color` (tuple=None): Color of the button background (defaults to primary accent).
+        - `hover_color` (tuple=None): Color of the hovered button (defaults to light accent).
+        - `text_color` (tuple=None): Color of the label text (defaults to dark text).
+        - `outline` (int=3): Outline thickness of the button.
+        """
 
         # Increase scope
         self.text     = text
@@ -34,12 +54,14 @@ class Button:
 
         # Graphics
         self.text_surface = self.font.render(text, True, self.text_color)
-        self.rect        = pg.Rect(0, 0, *self.size)
-        self.rect.center = center_pos
-        self.text_rect   = self.text_surface.get_rect(center=self.rect.center)
+        self.rect         = pg.Rect(0, 0, *self.size)
+        self.rect.center  = center_pos
+        self.text_rect    = self.text_surface.get_rect(center=self.rect.center)
+
+        lr.Log.debug('Initializing button:', text)
 
     # <-----> State Methods <-----> #
-    def handle_event(self, events:list[pg.event.Event]):
+    def handle_events(self, events:list[pg.event.Event]):
         for event in events:
             if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
                 if self.hovered:

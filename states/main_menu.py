@@ -9,7 +9,20 @@ from utils.settings import Settings
 from game import Game
 
 class MainMenu(BaseState):
+    """
+    **Main menu state.**
+    
+    Handles the main menu screen.
+    """
+
     def __init__(self, game:Game):
+        """
+        **Initialization.**
+        
+        *Parameters*:
+        - `game` (Game): The game to tie the class too.
+        """
+
         super().__init__(game)
 
         self.game = game
@@ -20,7 +33,7 @@ class MainMenu(BaseState):
 
         # Grab settings values
         self.colors = Settings.get('color_palette')
-        self.screen_width, self.screen_height = Settings.get('window_size').values()
+        self.scr_width, self.scr_height = Settings.get('window_size').values()
 
         # Init responsive background class
         self.background = ResponsiveParallexGrid(cell_size=40, max_speed=50)
@@ -28,26 +41,26 @@ class MainMenu(BaseState):
         # Define buttons
         self.buttons:list[Button] = [
             Button(
-                text='Start', center_pos=(self.screen_width / 2, 250),
+                text='Start', center_pos=(self.scr_width / 2, 250),
                 callback=self.start_game, font=self.button_font,
-                size=(self.screen_width / 3, 50)
+                size=(self.scr_width / 3, 50)
             ),
             Button(
-                text='Leaderboard', center_pos=(self.screen_width / 2, 310),
+                text='Leaderboard', center_pos=(self.scr_width / 2, 310),
                 callback=self.open_leaderboard, font=self.button_font,
-                size=(self.screen_width / 3, 50), bg_color=self.colors['blue'],
+                size=(self.scr_width / 3, 50), bg_color=self.colors['blue'],
                 hover_color=self.colors['blue_light']
             ),
             Button(
-                text='Settings', center_pos=(self.screen_width / 2, 370),
+                text='Settings', center_pos=(self.scr_width / 2, 370),
                 callback=self.open_settings, font=self.button_font,
-                size=(self.screen_width / 3, 50), bg_color=self.colors['blue'],
+                size=(self.scr_width / 3, 50), bg_color=self.colors['blue'],
                 hover_color=self.colors['blue_light']
             ),
             Button(
-                text='Quit', center_pos=(self.screen_width / 2, 430),
+                text='Quit', center_pos=(self.scr_width / 2, 430),
                 callback=self.quit_game, font=self.button_font,
-                size=(self.screen_width / 3, 50), bg_color=self.colors['red'],
+                size=(self.scr_width / 3, 50), bg_color=self.colors['red'],
                 hover_color=self.colors['red_light']
             )
         ]
@@ -72,7 +85,7 @@ class MainMenu(BaseState):
     # <-----> State Methods <-----> #
     def handle_events(self, events:list[pg.event.Event]):
         for button in self.buttons:
-            button.handle_event(events)
+            button.handle_events(events)
 
     def update(self, delta_time:float):
         mouse_pos = pg.mouse.get_pos()
@@ -89,12 +102,12 @@ class MainMenu(BaseState):
 
         # Draw title shadow
         shadow_surface = self.title_font.render('Snake', True, self.colors['primary_accent'])
-        shadow_rect = shadow_surface.get_rect(center=(self.screen_width / 2 + 4, 120 + 4))
+        shadow_rect = shadow_surface.get_rect(center=(self.scr_width / 2 + 4, 120 + 4))
         screen.blit(shadow_surface, shadow_rect)
 
         # Draw title text
         title_surface = self.title_font.render('Snake', True, self.colors['light_accent'])
-        title_rect = title_surface.get_rect(center=(self.screen_width / 2, 120))
+        title_rect = title_surface.get_rect(center=(self.scr_width / 2, 120))
         screen.blit(title_surface, title_rect)
 
         # Draw buttons

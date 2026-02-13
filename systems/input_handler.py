@@ -1,7 +1,7 @@
 from collections import deque
 import pygame as pg
 
-# Queue snake movements så det ikke føles choppy og shitty
+# Queue snake movements så det ikke føles choppy og shitty (psudo lige nu)
 class InputHandler:
     def __init__(self):
         self.queue = deque()

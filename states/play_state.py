@@ -4,9 +4,23 @@ import pygame as pg
 from states.base_state import BaseState
 from utils.settings import Settings
 from ui.background import Grid
+from game import Game
 
 class PlayState(BaseState):
-    def __init__(self, game):
+    """
+    **Play state menu state.**
+    
+    Handles the play state menu screen.
+    """
+
+    def __init__(self, game:Game):
+        """
+        **Initialization.**
+        
+        *Parameters*:
+        - `game` (Game): The game to tie the class too.
+        """
+
         super().__init__(game)
 
         # Grab settings values

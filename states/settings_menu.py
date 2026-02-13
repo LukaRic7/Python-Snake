@@ -8,7 +8,20 @@ from ui.button import Button
 from game import Game
 
 class SettingsMenu(BaseState):
+    """
+    **Settings menu state.**
+    
+    Handles the settings menu screen.
+    """
+
     def __init__(self, game:Game):
+        """
+        **Initialization.**
+        
+        *Parameters*:
+        - `game` (Game): The game to tie the class too.
+        """
+
         super().__init__(game)
 
         self.game = game
@@ -42,7 +55,7 @@ class SettingsMenu(BaseState):
     # <-----> State Methods <-----> #
     def handle_events(self, events:list[pg.event.Event]):
         for button in self.buttons:
-            button.handle_event(events)
+            button.handle_events(events)
 
     def update(self, delta_time:float):
         mouse_pos = pg.mouse.get_pos()
