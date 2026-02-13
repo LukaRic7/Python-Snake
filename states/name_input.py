@@ -4,6 +4,7 @@ import pygame as pg
 from states.base_state import BaseState
 from utils.settings import Settings
 from ui.background import ResponsiveParallexGrid
+from ui.input_box import InputBox
 
 class NameInput(BaseState):
     def __init__(self, game):
@@ -15,35 +16,29 @@ class NameInput(BaseState):
         # Init plain background class
         self.background = ResponsiveParallexGrid(cell_size=40, max_speed=50)
 
-        self.text = ''
+        # Font
+        self.font = pg.font.SysFont('Verdana', 24)
 
-        # testing
-        self.font = pg.font.Font(None, 36)
-        self.input_box = pg.Rect(100, 100, 400, 40)
-        self.color_inactive = pg.Color('gray')
-        self.color_active = pg.Color('dodgerblue')
-        self.color = self.color_inactive
+        # Controls
+        self.input_box = InputBox(
+            (100, 100), self.input_callback, self.font, size=(400, 50),
+            can_submit=False
+        )
 
         lr.Log.debug('Name input menu initialized!')
 
+    # <-----> Input Callback <-----> #
+    def input_callback(self, text:str):
+        print(text)
+
     # <-----> State Methods <-----> #
     def handle_events(self, events:list[pg.event.Event]):
-        # testing
-        for event in events:
-            if event.type == pg.MOUSEBUTTONDOWN:
-                self.active = self.input_box.collidepoint(event.pos)
-                self.color = self.color_active if self.active else self.color_inactive
-            if event.type == pg.KEYDOWN and self.active:
-                if event.key == pg.K_RETURN:
-                    print("Entered:", self.text)
-                    self.text = ""
-                elif event.key == pg.K_BACKSPACE:
-                    self.text = self.text[:-1]
-                else:
-                    self.text += event.unicode
+        self.input_box.handle_events(events)
 
     def update(self, delta_time:float):
         mouse_pos = pg.mouse.get_pos()
+
+        self.input_box.update(mouse_pos)
 
         self.background.update(delta_time, mouse_pos)
     
@@ -52,9 +47,5 @@ class NameInput(BaseState):
         screen.fill(self.colors['background'])
         self.background.draw(screen)
 
-        # testing
-        pg.draw.rect(screen, (40, 40, 40), self.input_box)
-        pg.draw.rect(screen, self.color, self.input_box, 3)
-
-        txt_surface = self.font.render(self.text, True, (255, 255, 255))
-        screen.blit(txt_surface, (self.input_box.x + 5, self.input_box.y + 5))
+        # Inputbox
+        self.input_box.draw(screen)

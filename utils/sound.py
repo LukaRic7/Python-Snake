@@ -20,7 +20,7 @@ class AudioManager:
     """
 
     pg.mixer.init()
-    pg.mixer.set_num_channels(16) # Concurrent
+    pg.mixer.set_num_channels(32) # Concurrent
 
     # Group channels (via pygame, same channel sounds)
     channels = { 'music': pg.mixer.Channel(0) }
