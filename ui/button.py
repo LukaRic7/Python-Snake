@@ -58,7 +58,7 @@ class Button:
         self.rect.center  = center_pos
         self.text_rect    = self.text_surface.get_rect(center=self.rect.center)
 
-        lr.Log.debug('Initializing button:', text)
+        lr.Log.debug('Initialized button:', text)
 
     # <-----> State Methods <-----> #
     def handle_events(self, events:list[pg.event.Event]):
