@@ -92,6 +92,9 @@ class Grid:
         self.cell_size = cell_size
 
     def draw(self, screen:pg.Surface):
+        x = 0
+        y = 0
+
         # Draw vertical lines
         while x < self.width:
             pg.draw.line(screen, self.color, (x, 0), (x, self.height))

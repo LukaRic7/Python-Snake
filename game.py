@@ -11,6 +11,7 @@ class Game:
     def __init__(self, screen:pg.Surface):
         self.screen          = screen
         self.state:BaseState = None
+        self.name:str        = None # Gets set before entering play state
 
         lr.Log.debug('Game state handler initialized!')
 

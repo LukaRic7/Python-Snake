@@ -37,7 +37,7 @@ class InputBox:
         - `can_submit` (bool=True): Weather the user can press enter to submit
         the text content, if this is false, callback won't be called.
         - `valid_symbols` (str=None): Whitelist of symbols that can be entered
-        (default is english alphabet, including all capitalized letters)
+        (default is english alphabet, including all capitalized letters + space)
         """
 
         # Increase scope
@@ -47,7 +47,7 @@ class InputBox:
         self.padding       = padding
         self.outline       = outline
         self.can_submit    = can_submit
-        self.valid_symbols = list(valid_symbols or 'abcdefghijklmnopqrstuvwxyz'
+        self.valid_symbols = list(valid_symbols or 'abcdefghijklmnopqrstuvwxyz '
                                   + 'abcdefghijklmnopqrstuvwxyz'.upper())
 
         # Set colors
