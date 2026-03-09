@@ -23,27 +23,44 @@ class How2Play(BaseState):
         """
 
         super().__init__(game)
+        
+        self.game = game
+        
+        # Define fonts
+        self.button_font = pg.font.SysFont('Verdana', 24)
 
         # Grab settings values
         self.colors = Settings.get('color_palette')
+        self.screen_width, self.screen_height = Settings.get('window_size').values()
 
         # Init responsive background class
         self.background = ResponsiveParallexGrid(cell_size=40, max_speed=50)
 
-        self.buttons = []
-
+        self.buttons = [
+            Button(
+                text='Back', center_pos=(20 + (self.screen_width / 10), self.screen_height - 55),
+                callback=self.back, font=self.button_font,
+                size=(self.screen_width / 5, 50), bg_color=self.colors['blue'],
+                hover_color=self.colors['blue_light']
+            )
+        ]
         lr.Log.debug('Instructions menu initialized!')
 
     # <-----> Button Callbacks <-----> #
     def back(self):
-        pass
+        from states.main_menu import MainMenu
+        self.game.change_state(MainMenu(self.game))
 
     # <-----> State Methods <-----> #
     def handle_events(self, events:list[pg.event.Event]):
-        pass
+        for button in self.buttons:
+            button.handle_events(events)
 
     def update(self, delta_time:float):
         mouse_pos = pg.mouse.get_pos()
+        
+        for button in self.buttons:
+            button.update(mouse_pos)
 
         self.background.update(delta_time, mouse_pos)
     
@@ -51,3 +68,7 @@ class How2Play(BaseState):
         # Reset background
         screen.fill(self.colors['background'])
         self.background.draw(screen)
+
+        for button in self.buttons:
+            button.draw(screen)
+

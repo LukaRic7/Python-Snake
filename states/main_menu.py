@@ -86,7 +86,7 @@ class MainMenu(BaseState):
         self.game.change_state(LeaderboardMenu(self.game))
 
     def open_how2play(self):
-        from states.how2play import How2Play
+        from states.how2play_menu import How2Play
         self.game.change_state(How2Play(self.game))
 
     def quit_game(self):
