@@ -58,7 +58,13 @@ class MainMenu(BaseState):
                 hover_color=self.colors['blue_light']
             ),
             Button(
-                text='Quit', center_pos=(self.scr_width / 2, 430),
+                text='How to Play', center_pos=(self.scr_width / 2, 430),
+                callback=self.open_how2play, font=self.button_font,
+                size=(self.scr_width / 3, 50), bg_color=self.colors['blue'],
+                hover_color=self.colors['blue_light']
+            ),
+            Button(
+                text='Quit', center_pos=(self.scr_width / 2, 490),
                 callback=self.quit_game, font=self.button_font,
                 size=(self.scr_width / 3, 50), bg_color=self.colors['red'],
                 hover_color=self.colors['red_light']
@@ -78,6 +84,10 @@ class MainMenu(BaseState):
     def open_leaderboard(self):
         from states.leaderboard_menu import LeaderboardMenu
         self.game.change_state(LeaderboardMenu(self.game))
+
+    def open_how2play(self):
+        from states.how2play import How2Play
+        self.game.change_state(How2Play(self.game))
 
     def quit_game(self):
         pg.quit()
