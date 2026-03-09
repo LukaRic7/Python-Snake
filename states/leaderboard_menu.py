@@ -2,6 +2,7 @@ import loggerric as lr
 import pygame as pg
 
 from ui.background import ResponsiveParallexGrid
+from utils.leaderboard import Leaderboard
 from states.base_state import BaseState
 from utils.settings import Settings
 from ui.button import Button
@@ -37,10 +38,23 @@ class LeaderboardMenu(BaseState):
         # Init responsive background class
         self.background = ResponsiveParallexGrid(cell_size=40, max_speed=50)
 
-        self.leaderboard_label = Label(
-            'Test text', (self.screen_width / 2, self.screen_height / 2),
-            font=self.font, size=(300, 200)
-        )
+        # Populate labels
+        self.labels:list[Label] = []
+        for index, (name, score) in enumerate(Leaderboard.get().items()):
+            if index == 10: break # Only show top 10
+            
+            self.labels.append(Label(
+                f'#{index + 1}', ((self.screen_width / 2) - 230, 50 + (index * 50)),
+                font=self.font, size=(80, 45)
+            ))
+            self.labels.append(Label(
+                name, ((self.screen_width / 2) - 30, 50 + (index * 50)),
+                font=self.font, size=(300, 45)
+            ))
+            self.labels.append(Label(
+                f'{score} P', ((self.screen_width / 2) + 200, 50 + (index * 50)),
+                font=self.font, size=(150, 45)
+            ))
 
         self.buttons = [
             Button(
@@ -55,7 +69,8 @@ class LeaderboardMenu(BaseState):
 
     # <-----> Button Callbacks <-----> #
     def back(self):
-        pass
+        from states.main_menu import MainMenu
+        self.game.change_state(MainMenu(self.game))
 
     # <-----> State Methods <-----> #
     def handle_events(self, events:list[pg.event.Event]):
@@ -79,4 +94,6 @@ class LeaderboardMenu(BaseState):
         for button in self.buttons:
             button.draw(screen)
 
-        self.leaderboard_label.draw(screen)
+        # Draw labels
+        for label in self.labels:
+            label.draw(screen)
