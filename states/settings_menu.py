@@ -4,6 +4,7 @@ import pygame as pg
 from ui.background import ResponsiveParallexGrid
 from states.base_state import BaseState
 from utils.settings import Settings
+from ui.slider import Slider
 from ui.button import Button
 from game import Game
 
@@ -36,12 +37,16 @@ class SettingsMenu(BaseState):
         # Init responsive background class
         self.background = ResponsiveParallexGrid(cell_size=40, max_speed=50)
 
-        self.buttons = [
+        self.widgets = [
             Button(
                 text='Back', center_pos=(20 + (self.screen_width / 10), self.screen_height - 55),
                 callback=self.back, font=self.button_font,
                 size=(self.screen_width / 5, 50), bg_color=self.colors['blue'],
                 hover_color=self.colors['blue_light']
+            ),
+            Slider(
+                text='General', center_pos=((self.screen_width / 2), 50), font=self.button_font,
+                size=(self.screen_width / 2, 50)
             )
         ]
 
@@ -54,13 +59,13 @@ class SettingsMenu(BaseState):
 
     # <-----> State Methods <-----> #
     def handle_events(self, events:list[pg.event.Event]):
-        for button in self.buttons:
+        for button in self.widgets:
             button.handle_events(events)
 
     def update(self, delta_time:float):
         mouse_pos = pg.mouse.get_pos()
 
-        for button in self.buttons:
+        for button in self.widgets:
             button.update(mouse_pos)
 
         self.background.update(delta_time, mouse_pos)
@@ -71,5 +76,5 @@ class SettingsMenu(BaseState):
         self.background.draw(screen)
 
         # Draw buttons
-        for button in self.buttons:
+        for button in self.widgets:
             button.draw(screen)
