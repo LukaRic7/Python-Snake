@@ -10,13 +10,14 @@ class Slider:
         self, text:str, center_pos:tuple, font:pg.font.Font, size:tuple,
         thumb_color:tuple=None, slide_color:tuple=None, outline:int=3,
         outline_color:tuple=None, text_color:tuple=None,
-        thumb_hover_color:tuple=None
+        thumb_hover_color:tuple=None, init_value:float=0.5
     ):
         # Increase scope
         self.text = text
         self.font = font
         self.size = size
         self.outline = outline
+        self.init_value = init_value
 
         # Set colors
         self.colors = Settings.get('color_palette')
@@ -32,9 +33,7 @@ class Slider:
         self.is_dragging = False
 
         self.title_label = Label(text, (center_pos[0] - size[0] / 2 - 100, center_pos[1]), font=font, size=(150, size[1]))
-        self.value_label = Label('50%', (center_pos[0] + size[0] / 2 + 100, center_pos[1]), font=font, size=(150, size[1]))
-
-        self.value = 0.5
+        self.value_label = Label(f'{self.init_value * 100:.0f}%', (center_pos[0] + size[0] / 2 + 100, center_pos[1]), font=font, size=(150, size[1]))
 
         # Graphics
         self.text_surface = self.font.render(text, True, self.text_color)
@@ -49,7 +48,7 @@ class Slider:
         lr.Log.debug('Initialized slider:', text)
     
     def get_value(self) -> float:
-        return self.value
+        return self.init_value
     
     # <-----> State Methods <-----> #
     def handle_events(self, events:list[pg.event.Event]):
@@ -73,6 +72,7 @@ class Slider:
         if self.is_dragging:
             clamped = min(self.rect.center[0] + self.size[0] / 2, max(self.rect.center[0] - self.size[0] / 2, mouse_pos[0]))
             self.thumb_rect.center = (clamped, self.thumb_rect.center[1])
+            self.value_label.set_text(f'{(clamped - self.size[0] / 2) / self.size[0] * 100:.0f}%')
 
     def draw(self, screen:pg.Surface):
         thumb_color = self.thumb_hover_color if self.hovered else self.thumb_color

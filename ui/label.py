@@ -30,6 +30,9 @@ class Label:
 
         lr.Log.debug('Initialized label:', f'{text[0:7]}...' if len(text) > 10 else text)
 
+    def set_text(self, text:str):
+        self.text_surface = self.font.render(text, True, self.text_color)
+
     # <-----> State Methods <-----> #
     def update(self, mouse_pos:tuple[int, int]):
         pass
