@@ -72,7 +72,8 @@ class Slider:
         if self.is_dragging:
             clamped = min(self.rect.center[0] + self.size[0] / 2, max(self.rect.center[0] - self.size[0] / 2, mouse_pos[0]))
             self.thumb_rect.center = (clamped, self.thumb_rect.center[1])
-            self.value_label.set_text(f'{(clamped - self.size[0] / 2) / self.size[0] * 100:.0f}%')
+            self.init_value = (clamped - self.size[0] / 2) / self.size[0]
+            self.value_label.set_text(f'{self.init_value * 100:.0f}%')
 
     def draw(self, screen:pg.Surface):
         thumb_color = self.thumb_hover_color if self.hovered else self.thumb_color
