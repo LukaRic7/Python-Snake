@@ -7,6 +7,7 @@ from utils.settings import Settings
 from ui.slider import Slider
 from ui.button import Button
 from game import Game
+from utils.sound import AudioManager
 
 class SettingsMenu(BaseState):
     """
@@ -37,18 +38,22 @@ class SettingsMenu(BaseState):
         # Init responsive background class
         self.background = ResponsiveParallexGrid(cell_size=40, max_speed=50)
 
-        self.widgets = [
-            Button(
+        self.widgets = {
+            "back": Button(
                 text='Back', center_pos=(20 + (self.screen_width / 10), self.screen_height - 55),
                 callback=self.back, font=self.button_font,
                 size=(self.screen_width / 5, 50), bg_color=self.colors['blue'],
                 hover_color=self.colors['blue_light']
             ),
-            Slider(
+            "general_volume": Slider(
                 text='General', center_pos=((self.screen_width / 2), 50), font=self.button_font,
                 size=(self.screen_width / 2, 50)
+            ),
+            "volume": Slider(
+                text='General', center_pos=((self.screen_width / 2), 150), font=self.button_font,
+                size=(self.screen_width / 2, 50)
             )
-        ]
+        }
 
         lr.Log.debug('Settings menu initialized!')
 
@@ -59,14 +64,17 @@ class SettingsMenu(BaseState):
 
     # <-----> State Methods <-----> #
     def handle_events(self, events:list[pg.event.Event]):
-        for button in self.widgets:
+        for button in self.widgets.values():
             button.handle_events(events)
 
     def update(self, delta_time:float):
         mouse_pos = pg.mouse.get_pos()
 
-        for button in self.widgets:
+        for button in self.widgets.values():
             button.update(mouse_pos)
+        
+        volume = self.widgets['general_volume'].get_value()
+        AudioManager.set_general_volume(volume)
 
         self.background.update(delta_time, mouse_pos)
     
@@ -76,5 +84,5 @@ class SettingsMenu(BaseState):
         self.background.draw(screen)
 
         # Draw buttons
-        for button in self.widgets:
+        for button in self.widgets.values():
             button.draw(screen)
