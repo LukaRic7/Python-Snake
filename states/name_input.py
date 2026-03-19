@@ -49,7 +49,7 @@ class NameInput(BaseState):
             self.text = 'Unknown Player'
 
         self.game.name = self.text
-        self.game.change_state(PlayState(self.game))
+        self.game.change_state(PlayState(self.game, self.text))
 
     # <-----> State Methods <-----> #
     def handle_events(self, events:list[pg.event.Event]):

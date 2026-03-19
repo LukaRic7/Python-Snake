@@ -89,7 +89,7 @@ class Slider:
             if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
                 if self.hovered:
                     AudioManager.play('button_click.mp3', 'ui')
-                self.is_dragging = True
+                    self.is_dragging = True
             elif event.type == pg.MOUSEBUTTONUP and event.button == 1:
                 self.is_dragging = False
     

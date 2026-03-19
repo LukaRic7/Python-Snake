@@ -5,6 +5,11 @@ from states.base_state import BaseState
 from utils.settings import Settings
 from ui.background import Grid
 from game import Game
+from entities.snake import Snake
+from entities.food import Food
+from systems.input_handler import InputHandler
+from systems.collision import check_wall_collision, check_self_collision
+from utils.sound import AudioManager
 
 class PlayState(BaseState):
     """
@@ -13,7 +18,7 @@ class PlayState(BaseState):
     Handles the play state menu screen.
     """
 
-    def __init__(self, game:Game):
+    def __init__(self, game:Game, username:str):
         """
         **Initialization.**
         
@@ -25,20 +30,66 @@ class PlayState(BaseState):
 
         # Grab settings values
         self.colors = Settings.get('color_palette')
+        self.window_size = Settings.get('window_size')
 
         # Init plain background class
         self.background = Grid(cell_size=40)
 
-        lr.Log.debug('Play menu initialized!')
+        self.username = username
+
+        # Game entities
+        self.snake = Snake()
+        self.food = Food(self.window_size['width'], self.window_size['height'], 40)
+        self.food.respawn(self.snake.body)  # Spawn food away from snake
+        self.input_handler = InputHandler()
+
+        # Timers for controlled update speed
+        self.snake_update_timer = 0
+        self.snake_update_interval = 1 / 5 # 5 FPS for snake
+
+        # Score
+        self.score = 0
+
+        lr.Log.debug(f'Play state initialized, playing as: {username}')
 
     # <-----> State Methods <-----> #
     def handle_events(self, events:list[pg.event.Event]):
-        pass
+        for event in events:
+            self.input_handler.handle_event(event, self.snake)
 
     def update(self, delta_time:float):
-        pass
+        self.snake_update_timer += delta_time
+        if self.snake_update_timer >= self.snake_update_interval:
+            self.snake_update_timer -= self.snake_update_interval
+
+            # Get next direction from input handler
+            new_dir = self.input_handler.get_next_direction(self.snake.direction)
+            self.snake.set_direction(new_dir)
+
+            # Move snake
+            self.snake.move()
+
+            # Check collisions
+            if check_wall_collision(self.snake.head()) or check_self_collision(self.snake.body):
+                AudioManager.play('death.mp3', 'sfx')
+
+                # Game over - switch to death menu
+                from states.death_menu import DeathMenu
+                self.game.change_state(DeathMenu(self.game, self.username, self.score))
+                return
+
+            # Check food collision
+            if self.snake.head() == self.food.position:
+                AudioManager.play('eat.mp3', 'sfx')
+                self.snake.grow()
+                self.food.respawn(self.snake.body)
+                self.score += 1
     
     def draw(self, screen:pg.Surface):
         # Reset background
         screen.fill(self.colors['background'])
         self.background.draw(screen)
+
+        # Draw entities
+        self.snake.draw(screen, self.colors['primary_accent'])
+        self.food.draw(screen, self.colors['red'])

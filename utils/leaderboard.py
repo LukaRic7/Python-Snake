@@ -23,7 +23,33 @@ class Leaderboard:
         return sorted_data
 
     @staticmethod
+    def is_high_score(score:int) -> bool:
+        """
+        **Check if the passed score is the highest.**
+        
+        *Parameters*:
+        - `score` (int): The score to compare.
+        
+        *Returns*:
+        - (bool): Is the highest score.
+        """
+
+        data = Leaderboard.get()
+        if not data:
+            return True
+
+        return score > max(data.values(), default=0)
+
+    @staticmethod
     def upsert(username:str, score:int):
+        """
+        **Insert/Update a users saved score.**
+        
+        *Parameters*:
+        - `username` (str): Username of the player
+        - `score` (int): New score to set
+        """
+
         lr.Log.debug(f'Writing leaderboard: {username}={score}')
 
         # Grab fresh data

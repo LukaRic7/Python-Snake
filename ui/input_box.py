@@ -70,6 +70,16 @@ class InputBox:
 
         lr.Log.debug('Initialized input box!')
 
+    def get_text(self) -> str:
+        """
+        **Get the text in the input box.**
+        
+        *Returns*:
+        - (str): Text in the input box.
+        """
+
+        return self.text
+
     # <-----> State Methods <-----> #
     def handle_events(self, events:list[pg.event.Event]):
         for event in events:
@@ -82,9 +92,11 @@ class InputBox:
                     self.text = ''
                 elif event.key == pg.K_BACKSPACE:
                     self.text = self.text[:-1]
+                    self.callback(self.text)
                     AudioManager.play('key_press.mp3', 'ui')
                 elif event.unicode in self.valid_symbols:
                     self.text += event.unicode
+                    self.callback(self.text)
                     AudioManager.play('key_press.mp3', 'ui')
 
     def update(self, mouse_pos:tuple[int, int]):
