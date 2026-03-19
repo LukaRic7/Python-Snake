@@ -65,7 +65,8 @@ class InputBox:
         self.played_click_sfx = False
 
         # Graphics
-        self.input_box = pg.Rect(*center_pos, *self.size)
+        self.input_box = pg.Rect(0, 0, *self.size)
+        self.input_box.center = center_pos
 
         lr.Log.debug('Initialized input box!')
 

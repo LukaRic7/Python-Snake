@@ -4,11 +4,35 @@ import pygame as pg
 from utils.settings import Settings
 
 class Label:
+    """
+    **Create a label widget using pygame.**
+    
+    Supports multiline functionality.
+    
+    *Methods*:
+    - `set_text(text:str) -> None`: Set the text of the label.
+    """
+
     def __init__(
         self, text:str, center_pos:tuple, font:pg.font.Font,
         padding:int=12, size:tuple=None, bg_color:tuple=None,
         text_color:tuple=None, outline:int=3, outline_color:tuple=None
     ):
+        """
+        **Initialization.**
+        
+        *Parameters*:
+        - `text` (str): The text that should be displayed.
+        - `center_pos` (tuple): Center position of the widget.
+        - `font` (pg.font.Font): Font that should be used.
+        - `padding` (int=12): Padding the button should use.
+        - `size` (tuple=None): Size of the label.
+        - `bg_color` (tuple=None): Background color of the label.
+        - `text_color` (tuple=None): Color of the text.
+        - `outline` (int=3): Outline thickness.
+        - `outline_color` (tuple=None): Color of the outline.
+        """
+
         # Increase scope
         self.text    = text
         self.font    = font
@@ -31,6 +55,13 @@ class Label:
         lr.Log.debug('Initialized label:', f'{text[0:7]}...' if len(text) > 10 else text)
 
     def set_text(self, text:str):
+        """
+        **Set the text of the widget.**
+        
+        *Parameters*:
+        - `text` (str): The text that should be displayed.
+        """
+
         self.text_surface = self.font.render(text, True, self.text_color)
 
     # <-----> State Methods <-----> #

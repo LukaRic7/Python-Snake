@@ -6,12 +6,39 @@ from utils.settings import Settings
 from ui.label import Label
 
 class Slider:
+    """
+    **Create a slider widget using pygame.**
+    
+    Comes with a text label to the left, slider in the middle, and label that
+    goes from 0-100% on the right, displaying the slider value.
+    
+    *Methods*:
+    - `get_value() -> float`: Slider value 0-1 range.
+    """
+
     def __init__(
         self, text:str, center_pos:tuple, font:pg.font.Font, size:tuple,
         thumb_color:tuple=None, slide_color:tuple=None, outline:int=3,
         outline_color:tuple=None, text_color:tuple=None,
         thumb_hover_color:tuple=None, init_value:float=0.5
     ):
+        """
+        **Initialization.**
+        
+        *Parameters*:
+        - `text` (str): The text that should be displayed on the label.
+        - `center_pos` (tuple): Center position of the widget.
+        - `font` (pg.font.Font): Font used for the labels.
+        - `size` (tuple): Size of the widget.
+        - `thumb_color` (tuple=None): Color of the thumb.
+        - `slide_color` (tuple=None): Color of the slide.
+        - `outline` (int=3): Outline thickness.
+        - `outline_color` (tuple=None): Center position of the widget.
+        - `text_color` (tuple=None): Color of the text in the labels.
+        - `thumb_hover_color` (tuple=None): Color of the thumb when hovering.
+        - `init_value` (float=0.5): The starting value when initialzing.
+        """
+
         # Increase scope
         self.text = text
         self.font = font
@@ -48,6 +75,12 @@ class Slider:
         lr.Log.debug('Initialized slider:', text)
     
     def get_value(self) -> float:
+        """
+        **Get the slider value. 0-1**
+        
+        *Returns*:
+        - (float): Slider value 0-1 range.
+        """
         return self.init_value
     
     # <-----> State Methods <-----> #
