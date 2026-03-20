@@ -24,7 +24,8 @@
     },
     "game": {
         "fps": 60,
-        "snake_fps": 5
+        "snake_fps": 5,
+        "num_apples": 3
     },
     "sound": {
         "general": 0.1,

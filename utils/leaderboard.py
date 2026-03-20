@@ -2,12 +2,29 @@ import loggerric as lr
 import os, json
 
 class Leaderboard:
+    """
+    **Manipulate the leaderboard file.**
+    
+    *Methods*:
+    - `get() -> dict`: Get the sorted leaderboard, from top to bottom score.
+    - `is_high_score(score:int) -> bool`: Check if the passed score is the
+    highest recorded score.
+    - `upsert(username, score) -> None`: Update/Insert a new score for a user.
+    """
+
     _settings_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'leaderboard.json')
 
     lr.Log.debug('Leaderboard initialized!')
 
     @staticmethod
     def get() -> dict:
+        """
+        **Get a sorted list of saved scores.**
+        
+        *Returns*:
+        - (dict): Ordered dictionary, name: score
+        """
+
         try:
             with open(Leaderboard._settings_path, 'r') as file:
                 data:dict = json.load(file)

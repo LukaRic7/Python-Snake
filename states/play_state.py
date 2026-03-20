@@ -39,8 +39,12 @@ class PlayState(BaseState):
 
         # Game entities
         self.snake = Snake()
-        self.food = Food(self.window_size['width'], self.window_size['height'], 40)
-        self.food.respawn(self.snake.body)  # Spawn food away from snake
+        self.foods:list[Food] = []
+        for _ in range(Settings.get('game', 'num_apples')):
+            food = Food(self.window_size['width'], self.window_size['height'], 40)
+            self.foods.append(food)
+            food.respawn(self.snake.body)  # Spawn food away from snake
+        
         self.input_handler = InputHandler()
 
         # Timers for controlled update speed
@@ -79,11 +83,12 @@ class PlayState(BaseState):
                 return
 
             # Check food collision
-            if self.snake.head() == self.food.position:
-                AudioManager.play('eat.mp3', 'sfx')
-                self.snake.grow()
-                self.food.respawn(self.snake.body)
-                self.score += 1
+            for food in self.foods:
+                if self.snake.head() == food.position:
+                    AudioManager.play('eat.mp3', 'sfx')
+                    self.snake.grow()
+                    food.respawn(self.snake.body)
+                    self.score += 1
     
     def draw(self, screen:pg.Surface):
         # Reset background
@@ -92,4 +97,6 @@ class PlayState(BaseState):
 
         # Draw entities
         self.snake.draw(screen, self.colors['primary_accent'])
-        self.food.draw(screen, self.colors['red'])
+
+        for food in self.foods:
+            food.draw(screen, self.colors['red'])
