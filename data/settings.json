@@ -4,23 +4,71 @@
         "height": 800
     },
     "color_palette": {
-        "background": [15, 23, 42],
-
-        "light_accent": [134, 239, 172],
-        "primary_accent": [16, 185, 129],
-        "secondary_accent": [99, 102, 241],
-        
-        "red_light": [255, 109, 109],
-        "red": [220, 38, 38],
-        "red_dark": [185, 78, 78],
-
-        "blue_light": [185, 205, 255],
-        "blue": [120, 160, 255],
-        "blue_dark": [60,  100, 200],
-
-        "primary_text": [248, 250, 252],
-        "secondary_text": [148, 163, 184],
-        "dark_text": [20, 20, 20]
+        "background": [
+            15,
+            23,
+            42
+        ],
+        "light_accent": [
+            134,
+            239,
+            172
+        ],
+        "primary_accent": [
+            16,
+            185,
+            129
+        ],
+        "secondary_accent": [
+            99,
+            102,
+            241
+        ],
+        "red_light": [
+            255,
+            109,
+            109
+        ],
+        "red": [
+            220,
+            38,
+            38
+        ],
+        "red_dark": [
+            185,
+            78,
+            78
+        ],
+        "blue_light": [
+            185,
+            205,
+            255
+        ],
+        "blue": [
+            120,
+            160,
+            255
+        ],
+        "blue_dark": [
+            60,
+            100,
+            200
+        ],
+        "primary_text": [
+            248,
+            250,
+            252
+        ],
+        "secondary_text": [
+            148,
+            163,
+            184
+        ],
+        "dark_text": [
+            20,
+            20,
+            20
+        ]
     },
     "game": {
         "fps": 60,
@@ -28,7 +76,7 @@
         "num_apples": 3
     },
     "sound": {
-        "general": 0.1,
+        "general": 1.0,
         "ui": 1.0,
         "music": 0.3,
         "sfx": 1.0

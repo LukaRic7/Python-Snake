@@ -47,11 +47,19 @@ class SettingsMenu(BaseState):
             ),
             "general_volume": Slider(
                 text='General', center_pos=((self.screen_width / 2), 50), font=self.button_font,
-                size=(self.screen_width / 2, 50)
+                size=(self.screen_width / 2, 50), init_value=Settings.get('sound', 'general')
             ),
-            "volume": Slider(
-                text='General', center_pos=((self.screen_width / 2), 150), font=self.button_font,
-                size=(self.screen_width / 2, 50)
+            "music_volume": Slider(
+                text='Music', center_pos=((self.screen_width / 2), 150), font=self.button_font,
+                size=(self.screen_width / 2, 50), init_value=Settings.get('sound', 'music')
+            ),
+            "sfx_volume": Slider(
+                text='Sfx', center_pos=((self.screen_width / 2), 250), font=self.button_font,
+                size=(self.screen_width / 2, 50), init_value=Settings.get('sound', 'sfx')
+            ),
+            "ui_sounds": Slider(
+                text='UI Sounds', center_pos=((self.screen_width / 2), 350), font=self.button_font,
+                size=(self.screen_width / 2, 50), init_value=Settings.get('sound', 'ui')
             )
         }
 
@@ -59,6 +67,11 @@ class SettingsMenu(BaseState):
 
     # <-----> Button Callbacks <-----> #
     def back(self):
+        Settings.set(AudioManager.volumes['general'], "sound", "general")
+        Settings.set(AudioManager.volumes['music'], "sound", "music")
+        Settings.set(AudioManager.volumes['sfx'], "sound", "sfx")
+        Settings.set(AudioManager.volumes['ui'], "sound", "ui")
+        
         from states.main_menu import MainMenu
         self.game.change_state(MainMenu(self.game))
 
@@ -75,6 +88,15 @@ class SettingsMenu(BaseState):
         
         volume = self.widgets['general_volume'].get_value()
         AudioManager.set_general_volume(volume)
+
+        volume = self.widgets['music_volume'].get_value()
+        AudioManager.set_volume('music', volume)
+
+        volume = self.widgets['sfx_volume'].get_value()
+        AudioManager.set_volume('sfx', volume)
+
+        volume = self.widgets['ui_sounds'].get_value()
+        AudioManager.set_volume('ui', volume)
 
         self.background.update(delta_time, mouse_pos)
     
