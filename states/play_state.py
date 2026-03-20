@@ -45,7 +45,7 @@ class PlayState(BaseState):
 
         # Timers for controlled update speed
         self.snake_update_timer = 0
-        self.snake_update_interval = 1 / 5 # 5 FPS for snake
+        self.snake_update_interval = 1 / Settings.get('game', 'snake_fps')
 
         # Score
         self.score = 0
