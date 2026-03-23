@@ -72,4 +72,4 @@ class Snake:
     # <-----> State Methods <-----> #
     def draw(self, screen:pg.Surface, color:tuple[int]):
         for index, segment in enumerate(self.body):
-            pg.draw.rect(screen, darken_rgb(color, max(50, 1 * index)), (segment.x, segment.y, 40, 40))
+            pg.draw.rect(screen, darken_rgb(color, min(50, 1 * index)), (segment.x, segment.y, 40, 40))
