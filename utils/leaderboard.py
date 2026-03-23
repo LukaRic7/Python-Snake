@@ -12,7 +12,7 @@ class Leaderboard:
     - `upsert(username, score) -> None`: Update/Insert a new score for a user.
     """
 
-    _settings_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'leaderboard.json')
+    _leaderboard_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'leaderboard.json')
 
     lr.Log.debug('Leaderboard initialized!')
 
@@ -26,7 +26,7 @@ class Leaderboard:
         """
 
         try:
-            with open(Leaderboard._settings_path, 'r') as file:
+            with open(Leaderboard._leaderboard_path, 'r') as file:
                 data:dict = json.load(file)
 
                 sorted_keys = sorted(data, key=lambda k: data[k], reverse=True)
@@ -77,5 +77,5 @@ class Leaderboard:
         # Upsert the name
         data[username] = score
 
-        with open(Leaderboard._settings_path, 'w') as file:
+        with open(Leaderboard._leaderboard_path, 'w') as file:
             json.dump(data, file, indent=4)
