@@ -45,6 +45,42 @@ class SettingsMenu(BaseState):
                 size=(self.screen_width / 5, 50), bg_color=self.colors['blue'],
                 hover_color=self.colors['blue_light']
             ),
+            "1_apple": Button(
+                text='1 Apple', center_pos=((self.screen_width / 6), 450),
+                callback=lambda: self.set_apples(1), font=self.button_font,
+                size=(self.screen_width / 5, 50), bg_color=self.colors['blue'],
+                hover_color=self.colors['blue_light']
+            ),
+            "3_apples": Button(
+                text='3 Apples', center_pos=((self.screen_width / 2), 450),
+                callback=lambda: self.set_apples(3), font=self.button_font,
+                size=(self.screen_width / 5, 50), bg_color=self.colors['blue'],
+                hover_color=self.colors['blue_light']
+            ),
+             "5_apples": Button(
+                text='5 Apples', center_pos=((self.screen_width / 6 * 5), 450),
+                callback=lambda: self.set_apples(5), font=self.button_font,
+                size=(self.screen_width / 5, 50), bg_color=self.colors['blue'],
+                hover_color=self.colors['blue_light']
+            ),
+            "5_cps": Button(
+                text='5 CPS', center_pos=((self.screen_width / 6), 550),
+                callback=lambda: self.set_cps(5), font=self.button_font,
+                size=(self.screen_width / 5, 50), bg_color=self.colors['blue'],
+                hover_color=self.colors['blue_light']
+            ),
+            "10_cps": Button(
+                text='10 CPS', center_pos=((self.screen_width / 2), 550),
+                callback=lambda: self.set_cps(10), font=self.button_font,
+                size=(self.screen_width / 5, 50), bg_color=self.colors['blue'],
+                hover_color=self.colors['blue_light']
+            ),
+            "15_cps": Button(
+                text='15 CPS', center_pos=((self.screen_width / 6 * 5), 550),
+                callback=lambda: self.set_cps(15), font=self.button_font,
+                size=(self.screen_width / 5, 50), bg_color=self.colors['blue'],
+                hover_color=self.colors['blue_light']
+            ),
             "general_volume": Slider(
                 text='General', center_pos=((self.screen_width / 2), 50), font=self.button_font,
                 size=(self.screen_width / 2, 50), init_value=Settings.get('sound', 'general')
@@ -65,6 +101,11 @@ class SettingsMenu(BaseState):
 
         lr.Log.debug('Settings menu initialized!')
 
+    def set_apples(self, num_apples:int):
+        Settings.set(num_apples, 'game', 'num_apples')
+        
+    def set_cps(self, cps:int):
+        Settings.set(cps, 'game', 'snake_fps')
     # <-----> Button Callbacks <-----> #
     def back(self):
         Settings.set(AudioManager.volumes['general'], "sound", "general")
