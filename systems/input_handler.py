@@ -18,6 +18,11 @@ class InputHandler:
             pg.K_DOWN: (0, 1),
             pg.K_LEFT: (-1, 0),
             pg.K_RIGHT: (1, 0),
+
+            pg.K_w: (0, -1),
+            pg.K_s: (0, 1),
+            pg.K_a: (-1, 0),
+            pg.K_d: (1, 0)
         }
 
     # Called at snake move (10fps ish)
