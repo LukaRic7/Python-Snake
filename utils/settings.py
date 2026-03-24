@@ -14,7 +14,9 @@ class Settings:
     """
 
     # Full path to the settings file
-    _settings_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'settings.json')
+    _settings_path = os.path.join(
+        os.path.dirname(__file__), '..', 'data', 'settings.json'
+    )
 
     # Keep track of the latest data as to not make too many open() calls
     _latest_data = None

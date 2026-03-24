@@ -25,7 +25,8 @@ class BaseState(ABC):
         **Handles pygame events**
         
         *Parameters*:
-        - `events` (list[pg.event.Event]): List of pygame events made this frame.
+        - `events` (list[pg.event.Event]): List of pygame events that happened
+        this frame.
         """
         
         pass

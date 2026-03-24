@@ -12,7 +12,9 @@ class Leaderboard:
     - `upsert(username, score) -> None`: Update/Insert a new score for a user.
     """
 
-    _leaderboard_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'leaderboard.json')
+    _leaderboard_path = os.path.join(
+        os.path.dirname(__file__), '..', 'data', 'leaderboard.json'
+    )
 
     lr.Log.debug('Leaderboard initialized!')
 

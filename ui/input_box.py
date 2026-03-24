@@ -120,14 +120,19 @@ class InputBox:
             self.played_click_sfx = True
 
     def draw(self, screen:pg.Surface):
-        outline_color = self.selected_outline if self.active else self.outline_color_inactive
-        box_color = self.hover_color if self.hovered or self.active else self.bg_color
+        outline_color = (self.selected_outline if self.active
+                         else self.outline_color_inactive)
+        box_color = (self.hover_color if self.hovered or self.active
+                     else self.bg_color)
 
         # Box
         pg.draw.rect(screen, box_color, self.input_box, border_radius=100)
         
         # Outline
-        pg.draw.rect(screen, outline_color, self.input_box, width=self.outline, border_radius=100)
+        pg.draw.rect(
+            screen, outline_color, self.input_box, width=self.outline,
+            border_radius=100
+        )
 
         # Text
         text_surface = self.font.render(self.text, True, self.text_color)

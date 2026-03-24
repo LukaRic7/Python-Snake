@@ -2,8 +2,6 @@ import pygame as pg
 
 from utils.color import darken_rgb
 
-# TODO: Make start_len work
-
 class Snake:
     """
     **Snake instance.**
@@ -25,9 +23,12 @@ class Snake:
         - `start_len` (int): Starting length.
         """
 
-        self.body = [pg.Vector2(start_pos)]
         self.direction = pg.Vector2(0, -1)  # Up
         self.grow_pending = False
+
+        start = pg.Vector2(start_pos)
+
+        self.body = [start - self.direction * 40 * i for i in range(start_len)]
 
     def head(self) -> pg.Vector2:
         """
@@ -72,4 +73,7 @@ class Snake:
     # <-----> State Methods <-----> #
     def draw(self, screen:pg.Surface, color:tuple[int]):
         for index, segment in enumerate(self.body):
-            pg.draw.rect(screen, darken_rgb(color, min(50, 1 * index)), (segment.x, segment.y, 40, 40))
+            pg.draw.rect(
+                screen, darken_rgb(color, min(50, 1 * index)),
+                (segment.x, segment.y, 40, 40)
+            )

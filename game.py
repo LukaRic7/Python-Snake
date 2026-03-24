@@ -8,6 +8,13 @@ from systems.collision import check_wall_collision, check_self_collision
 from states.base_state import BaseState
 
 class Game:
+    """
+    **Game instance, owns screen and state.**
+    
+    *Methods*:
+    - `change_state(new_state) -> None`: Change the game state.
+    """
+
     def __init__(self, screen:pg.Surface):
         self.screen          = screen
         self.state:BaseState = None

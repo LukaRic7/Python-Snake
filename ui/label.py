@@ -52,7 +52,9 @@ class Label:
         self.rect.center  = center_pos
         self.text_rect    = self.text_surface.get_rect(center=self.rect.center)
 
-        lr.Log.debug('Initialized label:', f'{text[0:7]}...' if len(text) > 10 else text)
+        lr.Log.debug(
+            'Initialized label:', f'{text[0:7]}...' if len(text) > 10 else text
+        )
 
     def set_text(self, text:str):
         """
@@ -71,6 +73,8 @@ class Label:
     def draw(self, screen:pg.Surface):
         pg.draw.rect(screen, self.bg_color, self.rect, border_radius=10)
 
-        pg.draw.rect(screen, (0, 0, 0), self.rect, width=self.outline, border_radius=10)
+        pg.draw.rect(
+            screen, (0, 0, 0), self.rect, width=self.outline, border_radius=10
+        )
 
         screen.blit(self.text_surface, self.text_rect)

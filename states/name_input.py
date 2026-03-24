@@ -42,9 +42,18 @@ class NameInput(BaseState):
 
     # <-----> Control Callbacks <-----> #
     def input_callback(self, text:str):
+        """
+        **Store the text from the input in a class-scoped variable.**
+        
+        *Parameters*:
+        - `text` (str): Text from input box.
+        """
         self.text = text
 
     def confirm_callback(self):
+        """
+        **Callback for the confirm button.**
+        """
         if not self.text.replace(' ', ''):
             self.text = 'Unknown Player'
 

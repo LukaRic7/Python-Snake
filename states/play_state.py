@@ -43,9 +43,11 @@ class PlayState(BaseState):
         self.snake = Snake()
         self.foods:list[Food] = []
         for _ in range(Settings.get('game', 'num_apples')):
-            food = Food(self.window_size['width'], self.window_size['height'], 40)
+            food = Food(
+                self.window_size['width'], self.window_size['height'], 40
+            )
             self.foods.append(food)
-            food.respawn(self.snake.body)  # Spawn food away from snake
+            food.respawn(self.snake.body)  # Dont spawn inside the snake
         
         self.input_handler = InputHandler()
 
@@ -76,7 +78,8 @@ class PlayState(BaseState):
             self.snake.move()
 
             # Check collisions
-            if check_wall_collision(self.snake.head()) or check_self_collision(self.snake.body):
+            if (check_wall_collision(self.snake.head())
+                or check_self_collision(self.snake.body)):
                 if self.luka_sfx:
                     AudioManager.play('luka_death.mp3', 'sfx')
                 else:
@@ -84,7 +87,9 @@ class PlayState(BaseState):
 
                 # Game over - switch to death menu
                 from states.death_menu import DeathMenu
-                self.game.change_state(DeathMenu(self.game, self.username, self.score))
+                self.game.change_state(DeathMenu(
+                    self.game, self.username, self.score
+                ))
                 return
 
             # Check food collision

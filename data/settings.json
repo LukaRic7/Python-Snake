@@ -72,7 +72,7 @@
     },
     "game": {
         "fps": 60,
-        "snake_fps": 15,
+        "snake_fps": 10,
         "num_apples": 5,
         "luka_sfx": true
     },

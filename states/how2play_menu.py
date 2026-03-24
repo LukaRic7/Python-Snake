@@ -31,16 +31,17 @@ class How2Play(BaseState):
 
         # Grab settings values
         self.colors = Settings.get('color_palette')
-        self.screen_width, self.screen_height = Settings.get('window_size').values()
+        self.scr_width, self.scr_height = Settings.get('window_size').values()
 
         # Init responsive background class
         self.background = ResponsiveParallexGrid(cell_size=40, max_speed=50)
 
         self.buttons = [
             Button(
-                text='Back', center_pos=(20 + (self.screen_width / 10), self.screen_height - 55),
+                text='Back',
+                center_pos=(20 + (self.scr_width / 10), self.scr_height - 55),
                 callback=self.back, font=self.button_font,
-                size=(self.screen_width / 5, 50), bg_color=self.colors['blue'],
+                size=(self.scr_width / 5, 50), bg_color=self.colors['blue'],
                 hover_color=self.colors['blue_light']
             )
         ]
@@ -48,6 +49,10 @@ class How2Play(BaseState):
 
     # <-----> Button Callbacks <-----> #
     def back(self):
+        """
+        **Return back to the main menu.**
+        """
+
         from states.main_menu import MainMenu
         self.game.change_state(MainMenu(self.game))
 

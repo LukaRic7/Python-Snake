@@ -75,21 +75,41 @@ class MainMenu(BaseState):
 
     # <-----> Button Callbacks <-----> #
     def start_game(self):
+        """
+        **Change state to start the game.**
+        """
+
         self.game.change_state(NameInput(self.game))
 
     def open_settings(self):
+        """
+        **Change state to the settings menu.**
+        """
+        
         from states.settings_menu import SettingsMenu
         self.game.change_state(SettingsMenu(self.game))
 
     def open_leaderboard(self):
+        """
+        **Change state to the leaderboard menu.**
+        """
+        
         from states.leaderboard_menu import LeaderboardMenu
         self.game.change_state(LeaderboardMenu(self.game))
 
     def open_how2play(self):
+        """
+        **Change state to the guide menu.**
+        """
+        
         from states.how2play_menu import How2Play
         self.game.change_state(How2Play(self.game))
 
     def quit_game(self):
+        """
+        **Quit the game, and close the process.**
+        """
+        
         pg.quit()
 
     # <-----> State Methods <-----> #
@@ -111,12 +131,18 @@ class MainMenu(BaseState):
         self.background.draw(screen)
 
         # Draw title shadow
-        shadow_surface = self.title_font.render('Snake', True, self.colors['primary_accent'])
-        shadow_rect = shadow_surface.get_rect(center=(self.scr_width / 2 + 4, 120 + 4))
+        shadow_surface = self.title_font.render(
+            'Snake', True, self.colors['primary_accent']
+        )
+        shadow_rect = shadow_surface.get_rect(
+            center=(self.scr_width / 2 + 4, 120 + 4)
+        )
         screen.blit(shadow_surface, shadow_rect)
 
         # Draw title text
-        title_surface = self.title_font.render('Snake', True, self.colors['light_accent'])
+        title_surface = self.title_font.render(
+            'Snake', True, self.colors['light_accent']
+        )
         title_rect = title_surface.get_rect(center=(self.scr_width / 2, 120))
         screen.blit(title_surface, title_rect)
 

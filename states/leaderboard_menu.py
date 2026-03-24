@@ -33,34 +33,35 @@ class LeaderboardMenu(BaseState):
 
         # Grab settings values
         self.colors = Settings.get('color_palette')
-        self.screen_width, self.screen_height = Settings.get('window_size').values()
+        self.scr_width, self.scr_height = Settings.get('window_size').values()
 
         # Init responsive background class
         self.background = ResponsiveParallexGrid(cell_size=40, max_speed=50)
 
         # Populate labels
         self.labels:list[Label] = []
-        for index, (name, score) in enumerate(Leaderboard.get().items()):
-            if index == 10: break # Only show top 10
+        for idx, (name, score) in enumerate(Leaderboard.get().items()):
+            if idx == 10: break # Only show top 10
             
             self.labels.append(Label(
-                f'#{index + 1}', ((self.screen_width / 2) - 230, 50 + (index * 50)),
+                f'#{idx + 1}', ((self.scr_width / 2) - 230, 50 + (idx * 50)),
                 font=self.font, size=(80, 45)
             ))
             self.labels.append(Label(
-                name, ((self.screen_width / 2) - 30, 50 + (index * 50)),
+                name, ((self.scr_width / 2) - 30, 50 + (idx * 50)),
                 font=self.font, size=(300, 45)
             ))
             self.labels.append(Label(
-                f'{score} P', ((self.screen_width / 2) + 200, 50 + (index * 50)),
+                f'{score} P', ((self.scr_width / 2) + 200, 50 + (idx * 50)),
                 font=self.font, size=(150, 45)
             ))
 
         self.buttons = [
             Button(
-                text='Back', center_pos=(20 + (self.screen_width / 10), self.screen_height - 55),
+                text='Back',
+                center_pos=(20 + (self.scr_width / 10), self.scr_height - 55),
                 callback=self.back, font=self.font,
-                size=(self.screen_width / 5, 50), bg_color=self.colors['blue'],
+                size=(self.scr_width / 5, 50), bg_color=self.colors['blue'],
                 hover_color=self.colors['blue_light']
             )
         ]
@@ -69,6 +70,10 @@ class LeaderboardMenu(BaseState):
 
     # <-----> Button Callbacks <-----> #
     def back(self):
+        """
+        **Return back to the main menu.**
+        """
+
         from states.main_menu import MainMenu
         self.game.change_state(MainMenu(self.game))
 

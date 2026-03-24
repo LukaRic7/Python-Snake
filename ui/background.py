@@ -18,15 +18,20 @@ class ResponsiveParallexGrid:
         
         *Parameters*:
         - `cell_size` (int): Pixel size of the grid.
-        - `width` (int=None): Width of the entire grid (defaults to window width).
-        - `height` (int=None): Height of the entire grid (defaults to window height).
-        - `color` (tuple=None): Color of the grid lines (defaults to secondary accent).
+        - `width` (int=None): Width of the entire grid
+        (defaults to window width).
+        - `height` (int=None): Height of the entire grid
+        (defaults to window height).
+        - `color` (tuple=None): Color of the grid lines
+        (defaults to secondary accent).
         - `max_speed` (float=100): Max moving speed for the grid.
         """
 
         self.width     = width or Settings.get('window_size', 'width')
         self.height    = height or Settings.get('window_size', 'height')
-        self.color     = color or Settings.get('color_palette', 'secondary_accent')
+        self.color     = color or Settings.get(
+            'color_palette', 'secondary_accent'
+        )
         self.cell_size = cell_size
         self.max_speed = max_speed
 
@@ -81,14 +86,19 @@ class Grid:
         
         *Parameters*:
         - `cell_size` (int): Size of each cell in pixels.
-        - `width` (int=None): Width of the entire grid (defaults to window width).
-        - `height` (int=None): Height of the entire grid (defaults to window height).
-        - `color` (tuple=None): Color of the grid (defaults to secondary accent).
+        - `width` (int=None): Width of the entire grid
+        (defaults to window width).
+        - `height` (int=None): Height of the entire grid
+        (defaults to window height).
+        - `color` (tuple=None): Color of the grid
+        (defaults to secondary accent).
         """
 
         self.width     = width or Settings.get('window_size', 'width')
         self.height    = height or Settings.get('window_size', 'height')
-        self.color     = color or Settings.get('color_palette', 'secondary_accent')
+        self.color     = color or Settings.get(
+            'color_palette', 'secondary_accent'
+        )
         self.cell_size = cell_size
 
     def draw(self, screen:pg.Surface):

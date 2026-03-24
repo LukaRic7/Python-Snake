@@ -46,4 +46,7 @@ class Food:
 
     # <-----> State Methods <-----> #
     def draw(self, screen:pg.Surface, color:tuple[int]):
-        pg.draw.rect(screen, color, (self.position.x, self.position.y, self.cell_size, self.cell_size))
+        pg.draw.rect(
+            screen, color,
+            (self.position.x, self.position.y, self.cell_size, self.cell_size)
+        )

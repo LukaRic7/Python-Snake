@@ -74,8 +74,6 @@ class AudioManager:
         """
 
         AudioManager.volumes['general'] = max(0.0, min(1.0, value))
-        
-    
 
     @staticmethod
     def get_volume(group:str) -> float:

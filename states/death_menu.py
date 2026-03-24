@@ -49,20 +49,36 @@ class DeathMenu(BaseState):
         center_x = self.window_size['width'] // 2
         center_y = self.window_size['height'] // 2
 
-        self.game_over_label = Label("Game Over", (center_x, center_y - 100), self.font, size=(self.window_size['width'] / 2, 45))
-        self.score_label = Label(f"Score: {self.score}", (center_x, center_y - 50), self.font, size=(self.window_size['width'] / 2, 45))
+        self.game_over_label = Label(
+            "Game Over", (center_x, center_y - 100), self.font,
+            size=(self.window_size['width'] / 2, 45)
+        )
+        self.score_label = Label(
+            f"Score: {self.score}", (center_x, center_y - 50), self.font,
+            size=(self.window_size['width'] / 2, 45)
+        )
         
         if self.is_high_score:
-            self.high_score_label = Label("New High Score!", (center_x, center_y), self.font, size=(self.window_size['width'] / 2, 45))
+            self.high_score_label = Label(
+                "New High Score!", (center_x, center_y), self.font,
+                size=(self.window_size['width'] / 2, 45)
+            )
         else:
             self.high_score_label = None
 
-        self.main_menu_button = Button("Main Menu", (center_x, center_y + 50), self.go_to_main_menu, self.font, size=(self.window_size['width'] / 2, 45))
+        self.main_menu_button = Button(
+            "Main Menu", (center_x, center_y + 50), self.go_to_main_menu,
+            self.font, size=(self.window_size['width'] / 2, 45)
+        )
 
         lr.Log.debug('Death menu initialized!')
 
     # <-----> Button Callbacks <-----> #
     def go_to_main_menu(self):
+        """
+        **Return back to the main menu.**
+        """
+
         from states.main_menu import MainMenu
         self.game.change_state(MainMenu(self.game))
 

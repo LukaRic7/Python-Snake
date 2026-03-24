@@ -49,7 +49,7 @@ class Slider:
         # Set colors
         self.colors = Settings.get('color_palette')
         self.thumb_color = thumb_color or self.colors['primary_accent']
-        self.thumb_hover_color = thumb_hover_color or self.colors['light_accent']
+        self.thumb_hover_col = thumb_hover_color or self.colors['light_accent']
         self.text_color = text_color or self.colors['primary_text']
         self.outline_color = outline_color or self.colors['secondary_accent']
         self.slide_color = slide_color or self.colors['dark_text']
@@ -61,8 +61,15 @@ class Slider:
         self.played_hover_sfx = False
         self.is_dragging = False
 
-        self.title_label = Label(text, (center_pos[0] - size[0] / 2 - 100, center_pos[1]), font=font, size=(150, size[1]))
-        self.value_label = Label(f'{self.init_value * 100:.0f}%', (center_pos[0] + size[0] / 2 + 100, center_pos[1]), font=font, size=(150, size[1]))
+        self.title_label = Label(
+            text, (center_pos[0] - size[0] / 2 - 100, center_pos[1]),
+            font=font, size=(150, size[1])
+        )
+        self.value_label = Label(
+            f'{self.init_value * 100:.0f}%',
+            (center_pos[0] + size[0] / 2 + 100, center_pos[1]),
+            font=font, size=(150, size[1])
+        )
 
         # Graphics
         self.text_surface = self.font.render(text, True, self.text_color)
@@ -111,18 +118,26 @@ class Slider:
             self.played_hover_sfx = True
 
         if self.is_dragging:
-            clamped = min(self.rect.center[0] + self.size[0] / 2, max(self.rect.center[0] - self.size[0] / 2, mouse_pos[0]))
+            clamped = min(
+                self.rect.center[0] + self.size[0] / 2,
+                max(self.rect.center[0] - self.size[0] / 2, mouse_pos[0])
+            )
             self.thumb_rect.center = (clamped, self.thumb_rect.center[1])
             self.init_value = (clamped - self.size[0] / 2) / self.size[0]
             self.value_label.set_text(f'{self.init_value * 100:.0f}%')
 
     def draw(self, screen:pg.Surface):
-        thumb_color = self.thumb_hover_color if self.hovered else self.thumb_color
+        thumb_color = self.thumb_hover_col if self.hovered else self.thumb_color
 
         self.title_label.draw(screen)
         self.value_label.draw(screen)
 
-        pg.draw.rect(screen, self.slide_color, self.slide_rect, border_radius=100)
+        pg.draw.rect(
+            screen, self.slide_color, self.slide_rect, border_radius=100
+        )
 
         pg.draw.rect(screen, thumb_color, self.thumb_rect, border_radius=50)
-        pg.draw.rect(screen, self.outline_color, self.thumb_rect, width=self.outline, border_radius=50)
+        pg.draw.rect(
+            screen, self.outline_color, self.thumb_rect,
+            width=self.outline, border_radius=50
+        )

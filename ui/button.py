@@ -28,9 +28,12 @@ class Button:
         - `font` (pg.font.Font): Font used for the button label.
         - `padding` (int=12): padding inside the button.
         - `size` (tuple=None): Size of the button (defaults to padding*2).
-        - `bg_color` (tuple=None): Color of the button background (defaults to primary accent).
-        - `hover_color` (tuple=None): Color of the hovered button (defaults to light accent).
-        - `text_color` (tuple=None): Color of the label text (defaults to dark text).
+        - `bg_color` (tuple=None): Color of the button background
+        (defaults to primary accent).
+        - `hover_color` (tuple=None): Color of the hovered button
+        (defaults to light accent).
+        - `text_color` (tuple=None): Color of the label text
+        (defaults to dark text).
         - `outline` (int=3): Outline thickness of the button.
         """
 
@@ -102,6 +105,8 @@ class Button:
         pg.draw.rect(screen, color, self.rect, border_radius=100)
         
         # Outline
-        pg.draw.rect(screen, (0, 0, 0), self.rect, width=self.outline, border_radius=100)
+        pg.draw.rect(
+            screen, (0, 0, 0), self.rect, width=self.outline, border_radius=100
+        )
 
         screen.blit(self.text_surface, self.text_rect)
