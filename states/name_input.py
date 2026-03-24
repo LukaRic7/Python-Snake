@@ -27,7 +27,7 @@ class NameInput(BaseState):
 
         # Controls
         self.input_box = InputBox(
-            (self.scr_width / 2, 100), self.input_callback, self.font,
+            (self.scr_width / 2, 400), self.input_callback, self.font,
             size=(self.scr_width / 2, 50), can_submit=False
         )
         self.confirm_button = Button(
