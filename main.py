@@ -28,7 +28,8 @@ def main():
     FPS = Settings.get('game', 'fps')
 
     # Start bg music
-    AudioManager.play('background_music.mp3', 'music', loops=-1)
+    AudioManager.play(('luka_' if Settings.get('game', 'luka_sfx') else '')
+                      + 'background_music.mp3', 'music', loops=-1)
 
     # Mainloop
     lr.Log.info('Entering Game Loop...')

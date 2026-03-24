@@ -54,6 +54,8 @@ class Slider:
         self.outline_color = outline_color or self.colors['secondary_accent']
         self.slide_color = slide_color or self.colors['dark_text']
 
+        self.luka_sfx = Settings.get('game', 'luka_sfx')
+
         # States
         self.hovered = False
         self.played_hover_sfx = False
@@ -88,7 +90,10 @@ class Slider:
         for event in events:
             if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
                 if self.hovered:
-                    AudioManager.play('button_click.mp3', 'ui')
+                    if self.luka_sfx:
+                        AudioManager.play('luka_button_click.mp3', 'sfx')
+                    else:
+                        AudioManager.play('button_click.mp3', 'ui')
                     self.is_dragging = True
             elif event.type == pg.MOUSEBUTTONUP and event.button == 1:
                 self.is_dragging = False
@@ -99,7 +104,10 @@ class Slider:
         if not self.hovered and self.played_hover_sfx:
             self.played_hover_sfx = False
         elif self.hovered and not self.played_hover_sfx:
-            AudioManager.play('button_hover.mp3', 'ui')
+            if self.luka_sfx:
+                AudioManager.play('luka_button_hover.mp3', 'sfx')
+            else:
+                AudioManager.play('button_hover.mp3', 'ui')
             self.played_hover_sfx = True
 
         if self.is_dragging:

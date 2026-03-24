@@ -58,6 +58,8 @@ class InputBox:
         self.selected_outline       = outline_selected_color or self.colors['blue']
         self.outline_color_inactive = '#000000' # Hardcoded cus fuck you
 
+        self.luka_sfx = Settings.get('game', 'luka_sfx')
+        
         # States / Values
         self.text             = ''
         self.active           = False
@@ -93,11 +95,17 @@ class InputBox:
                 elif event.key == pg.K_BACKSPACE:
                     self.text = self.text[:-1]
                     self.callback(self.text)
-                    AudioManager.play('key_press.mp3', 'ui')
+                    if self.luka_sfx:
+                        AudioManager.play('luka_key_press.mp3', 'sfx')
+                    else:
+                        AudioManager.play('key_press.mp3', 'ui')
                 elif event.unicode in self.valid_symbols:
                     self.text += event.unicode
                     self.callback(self.text)
-                    AudioManager.play('key_press.mp3', 'ui')
+                    if self.luka_sfx:
+                        AudioManager.play('luka_key_press.mp3', 'sfx')
+                    else:
+                        AudioManager.play('key_press.mp3', 'ui')
 
     def update(self, mouse_pos:tuple[int, int]):
         self.hovered = self.input_box.collidepoint(mouse_pos)
@@ -105,7 +113,10 @@ class InputBox:
         if not self.active and self.played_click_sfx:
             self.played_click_sfx = False
         elif self.active and not self.played_click_sfx:
-            AudioManager.play('button_hover.mp3', 'ui')
+            if self.luka_sfx:
+                AudioManager.play('luka_button_hover.mp3', 'sfx')
+            else:
+                AudioManager.play('button_hover.mp3', 'ui')
             self.played_click_sfx = True
 
     def draw(self, screen:pg.Surface):

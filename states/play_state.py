@@ -32,6 +32,8 @@ class PlayState(BaseState):
         self.colors = Settings.get('color_palette')
         self.window_size = Settings.get('window_size')
 
+        self.luka_sfx = Settings.get('game', 'luka_sfx')
+
         # Init plain background class
         self.background = Grid(cell_size=40)
 
@@ -75,7 +77,10 @@ class PlayState(BaseState):
 
             # Check collisions
             if check_wall_collision(self.snake.head()) or check_self_collision(self.snake.body):
-                AudioManager.play('death.mp3', 'sfx')
+                if self.luka_sfx:
+                    AudioManager.play('luka_death.mp3', 'sfx')
+                else:
+                    AudioManager.play('death.mp3', 'sfx')
 
                 # Game over - switch to death menu
                 from states.death_menu import DeathMenu
@@ -85,7 +90,10 @@ class PlayState(BaseState):
             # Check food collision
             for food in self.foods:
                 if self.snake.head() == food.position:
-                    AudioManager.play('eat.mp3', 'sfx')
+                    if self.luka_sfx:
+                        AudioManager.play('luka_eat.mp3', 'sfx')
+                    else:
+                        AudioManager.play('eat.mp3', 'sfx')
                     self.snake.grow()
                     food.respawn(self.snake.body)
                     self.score += 1

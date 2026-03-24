@@ -48,6 +48,8 @@ class Button:
         self.hover_color = hover_color or self.colors['light_accent']
         self.text_color  = text_color or self.colors['dark_text']
 
+        self.luka_sfx = Settings.get('game', 'luka_sfx')
+
         # States
         self.hovered          = False
         self.played_hover_sfx = False
@@ -66,7 +68,10 @@ class Button:
             if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
                 if self.hovered:
                     self.callback()
-                    AudioManager.play('button_click.mp3', 'ui')
+                    if self.luka_sfx:
+                        AudioManager.play('luka_button_click.mp3', 'sfx')
+                    else:
+                        AudioManager.play('button_click.mp3', 'ui')
 
     def update(self, mouse_pos:tuple[int, int]):
         self.hovered = self.rect.collidepoint(mouse_pos)
@@ -74,7 +79,10 @@ class Button:
         if not self.hovered and self.played_hover_sfx:
             self.played_hover_sfx = False
         elif self.hovered and not self.played_hover_sfx:
-            AudioManager.play('button_hover.mp3', 'ui')
+            if self.luka_sfx:
+                AudioManager.play('luka_button_hover.mp3', 'sfx')
+            else:
+                AudioManager.play('button_hover.mp3', 'ui')
             self.played_hover_sfx = True
 
         # Figure out the hover scale
