@@ -82,13 +82,13 @@ class SettingsMenu(BaseState):
                 hover_color=self.colors['blue_light']
             ),
             "enable_luka_sfx": Button(
-                text='Enable Luka SFX', center_pos=((self.screen_width / 3), 530),
+                text='Enable Luka SFX', center_pos=((self.screen_width / 3 - 10), 530),
                 callback=self.enable_luka_sfx, font=self.button_font,
                 size=(self.screen_width / 3, 50), bg_color=self.colors['blue'],
                 hover_color=self.colors['blue_light']
             ),
             "disable_luka_sfx": Button(
-                text='Disable Luka SFX', center_pos=((self.screen_width / 3 * 2), 530),
+                text='Disable Luka SFX', center_pos=((self.screen_width / 3 * 2 + 10), 530),
                 callback=self.disable_luka_sfx, font=self.button_font,
                 size=(self.screen_width / 3, 50), bg_color=self.colors['blue'],
                 hover_color=self.colors['blue_light']

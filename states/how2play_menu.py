@@ -6,6 +6,7 @@ from states.base_state import BaseState
 from utils.settings import Settings
 from ui.button import Button
 from game import Game
+from ui.label import Label
 
 class How2Play(BaseState):
     """
@@ -36,15 +37,21 @@ class How2Play(BaseState):
         # Init responsive background class
         self.background = ResponsiveParallexGrid(cell_size=40, max_speed=50)
 
-        self.buttons = [
-            Button(
+        self.widgets = {
+            "back": Button(
                 text='Back',
                 center_pos=(20 + (self.scr_width / 10), self.scr_height - 55),
                 callback=self.back, font=self.button_font,
                 size=(self.scr_width / 5, 50), bg_color=self.colors['blue'],
                 hover_color=self.colors['blue_light']
-            )
-        ]
+            ),
+            "instructions": Label(
+                text='Use wasd or the arrow keys to move the snake around and eat the apples!\n Avoid running into yourself or the walls! The snakes size grows with each apple consumed, eat apples to increase your score! Climb the leaderboard and edge your place as the best snaker in the world!',
+                center_pos=(self.scr_width / 2, self.scr_height / 2),
+                font=self.button_font, size=(self.scr_width / 1.5, self.scr_height / 2)
+            
+             )
+        }
         lr.Log.debug('Instructions menu initialized!')
 
     # <-----> Button Callbacks <-----> #
@@ -58,14 +65,16 @@ class How2Play(BaseState):
 
     # <-----> State Methods <-----> #
     def handle_events(self, events:list[pg.event.Event]):
-        for button in self.buttons:
-            button.handle_events(events)
+        for widget in self.widgets.values():
+            try:
+                widget.handle_events(events)
+            except Exception: pass
 
     def update(self, delta_time:float):
         mouse_pos = pg.mouse.get_pos()
         
-        for button in self.buttons:
-            button.update(mouse_pos)
+        for widget in self.widgets.values():
+            widget.update(mouse_pos)
 
         self.background.update(delta_time, mouse_pos)
     
@@ -74,6 +83,6 @@ class How2Play(BaseState):
         screen.fill(self.colors['background'])
         self.background.draw(screen)
 
-        for button in self.buttons:
-            button.draw(screen)
+        for widget in self.widgets.values():
+            widget.draw(screen)
 

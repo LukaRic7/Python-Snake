@@ -74,7 +74,7 @@
         "fps": 60,
         "snake_fps": 5,
         "num_apples": 3,
-        "luka_sfx": true
+        "luka_sfx": false
     },
     "sound": {
         "general": 1.0,
