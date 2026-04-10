@@ -98,7 +98,7 @@ class Slider:
             if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
                 if self.hovered:
                     if self.luka_sfx:
-                        AudioManager.play('luka_button_click.mp3', 'sfx')
+                        AudioManager.play('luka_button_click.mp3', 'ui')
                     else:
                         AudioManager.play('button_click.mp3', 'ui')
                     self.is_dragging = True
@@ -112,7 +112,7 @@ class Slider:
             self.played_hover_sfx = False
         elif self.hovered and not self.played_hover_sfx:
             if self.luka_sfx:
-                AudioManager.play('luka_button_hover.mp3', 'sfx')
+                AudioManager.play('luka_button_hover.mp3', 'ui')
             else:
                 AudioManager.play('button_hover.mp3', 'ui')
             self.played_hover_sfx = True

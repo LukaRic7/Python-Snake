@@ -72,7 +72,7 @@ class Button:
                 if self.hovered:
                     self.callback()
                     if self.luka_sfx:
-                        AudioManager.play('luka_button_click.mp3', 'sfx')
+                        AudioManager.play('luka_button_click.mp3', 'ui')
                     else:
                         AudioManager.play('button_click.mp3', 'ui')
 
@@ -83,7 +83,7 @@ class Button:
             self.played_hover_sfx = False
         elif self.hovered and not self.played_hover_sfx:
             if self.luka_sfx:
-                AudioManager.play('luka_button_hover.mp3', 'sfx')
+                AudioManager.play('luka_button_hover.mp3', 'ui')
             else:
                 AudioManager.play('button_hover.mp3', 'ui')
             self.played_hover_sfx = True

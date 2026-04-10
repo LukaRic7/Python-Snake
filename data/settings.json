@@ -73,13 +73,18 @@
     "game": {
         "fps": 60,
         "snake_fps": 5,
+<<<<<<< HEAD
         "num_apples": 3,
         "luka_sfx": false
+=======
+        "num_apples": 5,
+        "luka_sfx": true
+>>>>>>> dad9103d080e44d2ab4948ae5e7ebe1f564af642
     },
     "sound": {
         "general": 1.0,
         "ui": 1.0,
         "music": 1.0,
-        "sfx": 1.0
+        "sfx": 0.5
     }
 }

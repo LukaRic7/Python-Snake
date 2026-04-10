@@ -96,14 +96,14 @@ class InputBox:
                     self.text = self.text[:-1]
                     self.callback(self.text)
                     if self.luka_sfx:
-                        AudioManager.play('luka_key_press.mp3', 'sfx')
+                        AudioManager.play('luka_key_press.mp3', 'ui')
                     else:
                         AudioManager.play('key_press.mp3', 'ui')
                 elif event.unicode in self.valid_symbols:
                     self.text += event.unicode
                     self.callback(self.text)
                     if self.luka_sfx:
-                        AudioManager.play('luka_key_press.mp3', 'sfx')
+                        AudioManager.play('luka_key_press.mp3', 'ui')
                     else:
                         AudioManager.play('key_press.mp3', 'ui')
 
@@ -114,7 +114,7 @@ class InputBox:
             self.played_click_sfx = False
         elif self.active and not self.played_click_sfx:
             if self.luka_sfx:
-                AudioManager.play('luka_button_hover.mp3', 'sfx')
+                AudioManager.play('luka_button_hover.mp3', 'ui')
             else:
                 AudioManager.play('button_hover.mp3', 'ui')
             self.played_click_sfx = True
