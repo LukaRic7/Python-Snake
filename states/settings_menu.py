@@ -46,55 +46,68 @@ class SettingsMenu(BaseState):
                 hover_color=self.colors['blue_light']
             ),
             "1_apple": Button(
-                text='1 Apple', center_pos=((self.screen_width / 6), 450),
+                text='1 Apple', center_pos=((self.screen_width / 6), 370),
                 callback=lambda: self.set_apples(1), font=self.button_font,
                 size=(self.screen_width / 5, 50), bg_color=self.colors['blue'],
                 hover_color=self.colors['blue_light']
             ),
             "3_apples": Button(
-                text='3 Apples', center_pos=((self.screen_width / 2), 450),
+                text='3 Apples', center_pos=((self.screen_width / 2), 370),
                 callback=lambda: self.set_apples(3), font=self.button_font,
                 size=(self.screen_width / 5, 50), bg_color=self.colors['blue'],
                 hover_color=self.colors['blue_light']
             ),
              "5_apples": Button(
-                text='5 Apples', center_pos=((self.screen_width / 6 * 5), 450),
+                text='5 Apples', center_pos=((self.screen_width / 6 * 5), 370),
                 callback=lambda: self.set_apples(5), font=self.button_font,
                 size=(self.screen_width / 5, 50), bg_color=self.colors['blue'],
                 hover_color=self.colors['blue_light']
             ),
             "5_cps": Button(
-                text='5 CPS', center_pos=((self.screen_width / 6), 550),
+                text='5 CPS', center_pos=((self.screen_width / 6), 450),
                 callback=lambda: self.set_cps(5), font=self.button_font,
                 size=(self.screen_width / 5, 50), bg_color=self.colors['blue'],
                 hover_color=self.colors['blue_light']
             ),
             "10_cps": Button(
-                text='10 CPS', center_pos=((self.screen_width / 2), 550),
+                text='10 CPS', center_pos=((self.screen_width / 2), 450),
                 callback=lambda: self.set_cps(10), font=self.button_font,
                 size=(self.screen_width / 5, 50), bg_color=self.colors['blue'],
                 hover_color=self.colors['blue_light']
             ),
             "15_cps": Button(
-                text='15 CPS', center_pos=((self.screen_width / 6 * 5), 550),
+                text='15 CPS', center_pos=((self.screen_width / 6 * 5), 450),
                 callback=lambda: self.set_cps(15), font=self.button_font,
                 size=(self.screen_width / 5, 50), bg_color=self.colors['blue'],
                 hover_color=self.colors['blue_light']
+            ),
+            "enable_luka_sfx": Button(
+                text='Enable Luka SFX', center_pos=((self.screen_width / 3), 530),
+                callback=self.enable_luka_sfx, font=self.button_font,
+                size=(self.screen_width / 3, 50), bg_color=self.colors['blue'],
+                hover_color=self.colors['blue_light']
+            ),
+            "disable_luka_sfx": Button(
+                text='Disable Luka SFX', center_pos=((self.screen_width / 3 * 2), 530),
+                callback=self.disable_luka_sfx, font=self.button_font,
+                size=(self.screen_width / 3, 50), bg_color=self.colors['blue'],
+                hover_color=self.colors['blue_light']
+
             ),
             "general_volume": Slider(
                 text='General', center_pos=((self.screen_width / 2), 50), font=self.button_font,
                 size=(self.screen_width / 2, 50), init_value=Settings.get('sound', 'general')
             ),
             "music_volume": Slider(
-                text='Music', center_pos=((self.screen_width / 2), 150), font=self.button_font,
+                text='Music', center_pos=((self.screen_width / 2), 130), font=self.button_font,
                 size=(self.screen_width / 2, 50), init_value=Settings.get('sound', 'music')
             ),
             "sfx_volume": Slider(
-                text='Sfx', center_pos=((self.screen_width / 2), 250), font=self.button_font,
+                text='Sfx', center_pos=((self.screen_width / 2), 210), font=self.button_font,
                 size=(self.screen_width / 2, 50), init_value=Settings.get('sound', 'sfx')
             ),
             "ui_sounds": Slider(
-                text='UI Sounds', center_pos=((self.screen_width / 2), 350), font=self.button_font,
+                text='UI Sounds', center_pos=((self.screen_width / 2), 290), font=self.button_font,
                 size=(self.screen_width / 2, 50), init_value=Settings.get('sound', 'ui')
             )
         }
@@ -106,6 +119,14 @@ class SettingsMenu(BaseState):
         
     def set_cps(self, cps:int):
         Settings.set(cps, 'game', 'snake_fps')
+
+    def enable_luka_sfx(self):
+        Settings.set(True, 'game', 'luka_sfx')
+        self.widgets['enable_luka_sfx'].luka_sfx = True
+
+    def disable_luka_sfx(self):
+        Settings.set(False, 'game', 'luka_sfx')
+        self.widgets['enable_luka_sfx'].luka_sfx = False
 
     # <-----> Button Callbacks <-----> #
     def back(self):
