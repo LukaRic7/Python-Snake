@@ -58,5 +58,6 @@ def main():
     finally:
         pg.quit()
 
+# Ensure program is being run by user and not importet
 if __name__ == '__main__':
     main()

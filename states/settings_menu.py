@@ -106,12 +106,16 @@ class SettingsMenu(BaseState):
         
     def set_cps(self, cps:int):
         Settings.set(cps, 'game', 'snake_fps')
+
     # <-----> Button Callbacks <-----> #
     def back(self):
         Settings.set(AudioManager.volumes['general'], "sound", "general")
         Settings.set(AudioManager.volumes['music'], "sound", "music")
         Settings.set(AudioManager.volumes['sfx'], "sound", "sfx")
         Settings.set(AudioManager.volumes['ui'], "sound", "ui")
+
+        AudioManager.play(('luka_' if Settings.get('game', 'luka_sfx') else '')
+                        + 'background_music.mp3', 'music', loops=-1)
         
         from states.main_menu import MainMenu
         self.game.change_state(MainMenu(self.game))
