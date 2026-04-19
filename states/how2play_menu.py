@@ -46,7 +46,7 @@ class How2Play(BaseState):
                 hover_color=self.colors['blue_light']
             ),
             "instructions": Label(
-                text='Use wasd or the arrow keys to move the snake around and eat the apples!\n Avoid running into yourself or the walls! The snakes size grows with each apple consumed, eat apples to increase your score! Climb the leaderboard and edge your place as the best snaker in the world!',
+                text='Use wasd or the arrow keys to move\nthe snake around and eat the apples!\nAvoid running into yourself or the walls!\nThe snakes size grows with each apple consumed,\neat apples to increase your score! Climb\nthe leaderboard and edge your place\nas the best snaker in the world!',
                 center_pos=(self.scr_width / 2, self.scr_height / 2),
                 font=self.button_font, size=(self.scr_width / 1.5, self.scr_height / 2)
             
