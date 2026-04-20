@@ -78,7 +78,8 @@ class Slider:
         self.thumb_rect = pg.Rect(0, 0, 20, self.size[1])
         self.rect.center = center_pos
         self.slide_rect.center = center_pos
-        self.thumb_rect.center = center_pos
+        thumb_x = self.rect.center[0] - self.size[0] / 2 + self.init_value * self.size[0]
+        self.thumb_rect.center = (thumb_x, center_pos[1])
         self.text_rect = self.text_surface.get_rect(center=self.rect.center)
 
         lr.Log.debug('Initialized slider:', text)
