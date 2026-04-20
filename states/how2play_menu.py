@@ -47,10 +47,10 @@ class How2Play(BaseState):
             ),
             "instructions": Label(
                 text=("""Use wasd or the arrow keys to move
-                      \nthe snake around and eat the apples!
-                      \nAvoid running into yourself or the walls!
+                      \nthe snake around and eat the apples
+                      \nAvoid running into yourself or the walls
                       \nThe snakes size grows with each apple consumed,
-                      \neat apples to increase your score! 
+                      \neat apples to increase your score
                       \nClimb the leaderboard and edge your place
                       \nas the best snaker in the world!"""),
                 center_pos=(self.scr_width / 2, self.scr_height / 2),

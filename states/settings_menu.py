@@ -92,7 +92,18 @@ class SettingsMenu(BaseState):
                 callback=self.disable_luka_sfx, font=self.button_font,
                 size=(self.screen_width / 3, 50), bg_color=self.colors['blue'],
                 hover_color=self.colors['blue_light']
-
+            ),
+            "windowed": Button(
+                text='Windowed', center_pos=((self.screen_width / 3 * 2 + 10), 610),
+                callback=lambda: self.enable_windowed(720, 720), font=self.button_font,
+                size=(self.screen_width / 3, 50), bg_color=self.colors['blue'],
+                hover_color=self.colors['blue_light']
+),
+            "full_screen": Button(
+                text='Full Screen', center_pos=((self.screen_width / 3 - 10), 610),
+                callback=lambda: self.enable_full_screen(pg.display.Info().current_w, pg.display.Info().current_h), font=self.button_font,
+                size=(self.screen_width / 3, 50), bg_color=self.colors['blue'],
+                hover_color=self.colors['blue_light']
             ),
             "general_volume": Slider(
                 text='General', center_pos=((self.screen_width / 2), 50), font=self.button_font,
@@ -128,6 +139,13 @@ class SettingsMenu(BaseState):
         Settings.set(False, 'game', 'luka_sfx')
         self.widgets['enable_luka_sfx'].luka_sfx = False
 
+    def enable_windowed(self,width:int, height:int):
+        Settings.set(width, 'window_size', 'width')
+        Settings.set(height, 'window_size', 'height')
+
+    def enable_full_screen(self, width:int, height:int):
+        Settings.set(width,'window_size', 'width')
+        Settings.set(height, 'window_size', 'height')   
     # <-----> Button Callbacks <-----> #
     def back(self):
         Settings.set(AudioManager.volumes['general'], "sound", "general")
