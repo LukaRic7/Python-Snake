@@ -140,8 +140,9 @@ class SettingsMenu(BaseState):
         self.widgets['enable_luka_sfx'].luka_sfx = False
 
     def enable_windowed(self,width:int, height:int):
-        Settings.set(width, 720, 720)
-        Settings.set(height, 720, 720)
+        Settings.set(width, 'window_size', 'width')
+        Settings.set(height, 'window_size', 'height')
+        self.game.set_windowed(True)
 
     def enable_full_screen(self):
         info = pg.display.Info()

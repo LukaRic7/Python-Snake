@@ -6,6 +6,7 @@ from entities.food import Food
 from systems.input_handler import InputHandler
 from systems.collision import check_wall_collision, check_self_collision
 from states.base_state import BaseState
+from utils.settings import Settings
 
 class Game:
     """
@@ -40,6 +41,12 @@ class Game:
             info = pg.display.Info()
             self.screen = pg.display.set_mode((info.current_w, info.current_h), pg.FULLSCREEN)
         else:
+            w, h = Settings.get('window_size').values()
+            self.screen = pg.display.set_mode((w, h))
+
+    def set_windowed(self, windowed:bool):
+        """**Toggle windowed mode.**"""
+        if windowed:
             w, h = Settings.get('window_size').values()
             self.screen = pg.display.set_mode((w, h))
 
