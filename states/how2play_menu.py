@@ -26,7 +26,12 @@ class How2Play(BaseState):
         super().__init__(game)
         
         self.game = game
-        
+        self.image = pg.image.load('assets/snek.png')
+        self.image2 = pg.image.load('assets/death_screen.png')
+        self.image = pg.transform.scale(self.image, (self.image.get_width() // 3, self.image.get_height() // 3))
+        self.image2 = pg.transform.scale(self.image2, (self.image2.get_width() //1.5, self.image2.get_height() // 1.5))
+        self.image = pg.transform.rotate(self.image, 330)
+        self.image2 = pg.transform.rotate(self.image2, 30)
         # Define fonts
         self.button_font = pg.font.SysFont('Verdana', 24)
 
@@ -53,7 +58,7 @@ class How2Play(BaseState):
                       \neat apples to increase your score
                       \nClimb the leaderboard and edge your place
                       \nas the best snaker in the world!"""),
-                center_pos=(self.scr_width / 2, self.scr_height / 2),
+                center_pos=(self.scr_width / 2, self.scr_height / 2 + 70),
                 font=self.button_font, size=(self.scr_width / 1.5, self.scr_height / 2)
             
              )
@@ -91,4 +96,6 @@ class How2Play(BaseState):
 
         for widget in self.widgets.values():
             widget.draw(screen)
+        screen.blit(self.image, (self.scr_width /1.4, 0))
+        screen.blit(self.image2, (-100, 0))
 
