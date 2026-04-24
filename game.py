@@ -34,6 +34,15 @@ class Game:
 
         lr.Log.debug('Switched state:', new_state)
 
+    def set_fullscreen(self, fullscreen:bool):
+        """**Toggle fullscreen mode.**"""
+        if fullscreen:
+            info = pg.display.Info()
+            self.screen = pg.display.set_mode((info.current_w, info.current_h), pg.FULLSCREEN)
+        else:
+            w, h = Settings.get('window_size').values()
+            self.screen = pg.display.set_mode((w, h))
+
     # <-----> State Methods <-----> #
     def handle_events(self, events:list[pg.event.Event]):
         pass

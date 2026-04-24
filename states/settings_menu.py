@@ -101,7 +101,7 @@ class SettingsMenu(BaseState):
 ),
             "full_screen": Button(
                 text='Full Screen', center_pos=((self.screen_width / 3 - 10), 610),
-                callback=lambda: self.enable_full_screen(pg.display.Info().current_w, pg.display.Info().current_h), font=self.button_font,
+                callback=self.enable_full_screen, font=self.button_font,
                 size=(self.screen_width / 3, 50), bg_color=self.colors['blue'],
                 hover_color=self.colors['blue_light']
             ),
@@ -140,12 +140,15 @@ class SettingsMenu(BaseState):
         self.widgets['enable_luka_sfx'].luka_sfx = False
 
     def enable_windowed(self,width:int, height:int):
-        Settings.set(width, 'window_size', 'width')
-        Settings.set(height, 'window_size', 'height')
+        Settings.set(width, 720, 720)
+        Settings.set(height, 720, 720)
 
-    def enable_full_screen(self, width:int, height:int):
-        Settings.set(width,'window_size', 'width')
-        Settings.set(height, 'window_size', 'height')   
+    def enable_full_screen(self):
+        info = pg.display.Info()
+        Settings.set(info.current_w, 'window_size', 'width')
+        Settings.set(info.current_h, 'window_size', 'height')
+        self.game.set_fullscreen(True) 
+
     # <-----> Button Callbacks <-----> #
     def back(self):
         Settings.set(AudioManager.volumes['general'], "sound", "general")
