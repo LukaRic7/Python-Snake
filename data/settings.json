@@ -1,7 +1,7 @@
 {
     "window_size": {
-        "width": 720,
-        "height": 720
+        "width": 1024,
+        "height": 768
     },
     "color_palette": {
         "background": [
@@ -73,14 +73,14 @@
     "game": {
         "fps": 60,
         "snake_fps": 5,
-        "num_apples": 3,
+        "num_apples": 5,
         "luka_sfx": false
     },
     "sound": {
         "general": 0.25,
         "ui": 1.0,
         "music": 0.15,
-        "sfx": 0.5
+        "sfx": 0.5027777777777778
     },
     "width": 720,
     "height": 720
