@@ -140,15 +140,24 @@ class SettingsMenu(BaseState):
         self.widgets['enable_luka_sfx'].luka_sfx = False
 
     def enable_windowed(self,width:int, height:int):
-        Settings.set(width, 'window_size', 'width')
-        Settings.set(height, 'window_size', 'height')
-        self.game.set_windowed(True)
+        Settings.set(width or 720, 'window_size', 'width')
+        Settings.set(height or 720, 'window_size', 'height')
+
+        pg.quit()
 
     def enable_full_screen(self):
-        info = pg.display.Info()
-        Settings.set(info.current_w, 'window_size', 'width')
-        Settings.set(info.current_h, 'window_size', 'height')
-        self.game.set_fullscreen(True) 
+        import tkinter as tk
+
+        root = tk.Tk()
+        width = root.winfo_screenwidth()
+        height = root.winfo_screenheight()
+
+        root.destroy()
+        
+        Settings.set(width, 'window_size', 'width')
+        Settings.set(height, 'window_size', 'height')
+
+        pg.quit()
 
     # <-----> Button Callbacks <-----> #
     def back(self):

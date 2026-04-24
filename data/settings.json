@@ -1,7 +1,7 @@
 {
     "window_size": {
-        "width": 1024,
-        "height": 768
+        "width": 720,
+        "height": 720
     },
     "color_palette": {
         "background": [
@@ -81,7 +81,5 @@
         "ui": 1.0,
         "music": 0.15,
         "sfx": 0.5027777777777778
-    },
-    "width": 720,
-    "height": 720
+    }
 }
